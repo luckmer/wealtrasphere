@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod modules;
+use database::init_database;
 use modules::window;
 use tauri::Manager;
 
@@ -17,6 +18,7 @@ fn main() {
         .setup(move |app| {
             app.trigger_global("set-backend-ready", None);
             window::set_window_min_size(app);
+            init_database();
             Ok(())
         })
         .run(tauri::generate_context!())
