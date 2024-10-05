@@ -1,24 +1,26 @@
 {
   "name": "wealtrasphere",
-  "version": "0.1.0",
-  "description": "",
-  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "web/*",
+    "packages/*"
+  ],
+  "nohoist": [
+    "**/solid-start"
+  ],
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "tauri": "tauri"
+    "dev": "cd web/apps && yarn dev",
+    "storybook": "cd packages/ui && yarn storybook",
+    "build-storybook": "cd packages/ui && storybook build",
+    "build": "cd web/apps && solid-start build",
+    "start": "cd web/apps && solid-start start"
   },
-  "license": "MIT",
   "dependencies": {
-    "solid-js": "^1.7.8",
-    "@tauri-apps/api": "^1"
+    "solid-js": "^1.7.8"
   },
-  "devDependencies": {
-    "typescript": "^5.2.2",
-    "vite": "^5.3.1",
-    "vite-plugin-solid": "^2.8.0",
-    "@tauri-apps/cli": "^1"
+  "engines": {
+    "pnpm": ">=8.14.1",
+    "node": ">=20.11.0"
   }
 }
