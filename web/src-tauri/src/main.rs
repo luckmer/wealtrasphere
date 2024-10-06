@@ -19,6 +19,7 @@ fn main() {
             app.trigger_global("set-backend-ready", None);
             window::set_window_min_size(app);
             init_database();
+
             Ok(())
         })
         .run(tauri::generate_context!())
