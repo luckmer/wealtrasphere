@@ -17,6 +17,7 @@
     "start": "cd web/apps && solid-start start"
   },
   "dependencies": {
+    "@solidjs/router": "^0.14.7",
     "solid-js": "^1.7.8"
   },
   "engines": {
