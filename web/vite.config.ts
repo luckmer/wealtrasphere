@@ -1,16 +1,10 @@
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
-import { resolve } from "path";
+import tsconfigPath from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [solid()],
-
-  resolve: {
-    alias: {
-      "@styles": resolve(__dirname, "./src/styles"),
-    },
-  },
+  plugins: [solid(), tsconfigPath()],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

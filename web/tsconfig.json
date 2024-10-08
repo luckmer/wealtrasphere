@@ -21,16 +21,57 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "@interfaces/*": [
+        "./src/types/*"
+      ],
+      "@static/*": [
+        "./src/static/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@icons": [
+        "../packages/ui/common/svg/*"
+      ],
+      "@components/*": [
+        "../packages/ui/src/components/*"
+      ],
+      "@theme/*": [
+        "../packages/ui/common/theme/*"
+      ],
+      "@pages/*": [
+        "../packages/ui/src/pages/*"
+      ],
+      "@containers/*": [
+        "./src/containers/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ]
+    },
   },
   "include": [
-    "src"
+    "src",
+    "**/*.ts",
+    "**/*.tsx",
+    "index.js",
+    ".",
+    "./",
   ],
-  "paths": {
-    "@styles/*": [
-      "src/styles/*"
-    ],
-  },
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    "./node_modules/@types/node/index.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
