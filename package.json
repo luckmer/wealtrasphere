@@ -18,10 +18,16 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.14.7",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "postcss-import": "^16.1.0",
     "solid-js": "^1.7.8"
   },
   "engines": {
     "pnpm": ">=8.14.1",
     "node": ">=20.11.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
   }
 }
