@@ -1,15 +1,24 @@
 import { type Meta, type StoryObj } from "storybook-solidjs";
 import RoundedButton from "./Index";
+import { createSignal } from "solid-js";
 
 const meta: Meta<typeof RoundedButton> = {
   component: RoundedButton,
-  title: "Components/Buttons/roundedButton",
+  title: "Components/Buttons/RoundedButton",
 };
 export default meta;
 type Story = StoryObj<typeof RoundedButton>;
 
-export const Empty: Story = {
+export const Default: Story = {
   render: () => {
-    return <RoundedButton />;
+    const [rotate, setRotate] = createSignal(false);
+    return (
+      <RoundedButton
+        rotate={rotate()}
+        onclick={() => {
+          setRotate((prev) => !prev);
+        }}
+      />
+    );
   },
 };
