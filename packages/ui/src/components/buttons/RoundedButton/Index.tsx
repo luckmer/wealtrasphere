@@ -1,6 +1,5 @@
 const RoundedButton = () => {
-  return <div class="w-26 h-26 bg-red">Index</div>;
+  return <div class="w-auto h-auto bg-black-300">Index</div>;
 };
 
 export default RoundedButton;
-// configure tailwind

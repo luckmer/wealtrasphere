@@ -1,12 +1,10 @@
-const theme = require("./common/theme");
+import theme from "./common/theme";
 
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx,css,md,mdx,html,json,scss}",
   ],
-  theme: {
-    ...theme,
-  },
+  theme: theme,
   plugins: [],
 };
