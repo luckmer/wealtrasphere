@@ -1,8 +1,9 @@
 import IconButton from "@components/buttons/IconButton/Index";
 import RoundedButton from "@components/buttons/RoundedButton/Index";
-import { AiOutlineHome } from "solid-icons/ai";
-import { Component, createSignal } from "solid-js";
 import { NAVIGATION } from "@interfaces/enums/index";
+import { AiOutlineHome } from "solid-icons/ai";
+import { VsAccount, VsSettings } from "solid-icons/vs";
+import { Component, createSignal } from "solid-js";
 
 export interface IProps {
   navigation: NAVIGATION;
@@ -27,7 +28,7 @@ const Sidebar: Component<IProps> = (props) => {
       classList={{ "w-[225px]": rotate(), "w-full": !rotate() }}
     >
       <div
-        class="absolute top-[30px] -translate-y-1/2 right-[-20px] transition-opacity duration-[350ms] ease-in-out"
+        class="absolute top-48 -translate-y-1/2 right-[-20px] transition-opacity duration-[350ms] ease-in-out"
         classList={{
           "opacity-0 invisible": !showButton(),
           "opacity-100 visible": showButton(),
@@ -41,7 +42,7 @@ const Sidebar: Component<IProps> = (props) => {
           }}
         />
       </div>
-      <div class="pt-[30px] flex flex-col gap-[12px]">
+      <div class="pt-30 flex flex-col gap-[12px]">
         <div
           class="transition-opacity duration-[350ms] ease-in-out pb-[12px]"
           classList={{
@@ -53,38 +54,38 @@ const Sidebar: Component<IProps> = (props) => {
           </p>
         </div>
         <IconButton
-          title={showText() ? "Dashboard" : ""}
           active={props.navigation === NAVIGATION.DASHBOARD}
           hideText={!showText()}
+          title="Dashboard"
         >
           <AiOutlineHome
+            class="group-hover:fill-purple-100"
             size={21}
             fill={
               props.navigation === NAVIGATION.DASHBOARD ? "#817DF7" : "grey"
             }
-            class="group-hover:fill-purple-100"
           />
         </IconButton>
         <IconButton
-          title={showText() ? "Accounts" : ""}
           active={props.navigation === NAVIGATION.ACCOUNTS}
           hideText={!showText()}
+          title="Accounts"
         >
-          <AiOutlineHome
-            size={21}
+          <VsAccount
             fill={props.navigation === NAVIGATION.ACCOUNTS ? "#817DF7" : "grey"}
             class="group-hover:fill-purple-100"
+            size={21}
           />
         </IconButton>
         <IconButton
-          title={showText() ? "Settings " : ""}
           active={props.navigation === NAVIGATION.SETTINGS}
           hideText={!showText()}
+          title="Settings"
         >
-          <AiOutlineHome
-            size={21}
+          <VsSettings
             fill={props.navigation === NAVIGATION.SETTINGS ? "#817DF7" : "grey"}
             class="group-hover:fill-purple-100"
+            size={21}
           />
         </IconButton>
       </div>
