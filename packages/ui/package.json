@@ -23,7 +23,6 @@
     "storybook-solidjs-vite": "1.0.0-beta.2"
   },
   "dependencies": {
-    "@storybook/docs-tools": "^8.3.5",
-    "solid-icons": "^1.1.0"
+    "@storybook/docs-tools": "^8.3.5"
   }
 }
