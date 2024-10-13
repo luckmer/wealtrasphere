@@ -13,8 +13,12 @@ type Story = StoryObj<typeof IconButton>;
 export const Default: Story = {
   render: () => {
     return (
-      <IconButton title="Portfolio">
-        <AiOutlineHome fill="grey" size={20} />
+      <IconButton active={false} title="Portfolio">
+        <AiOutlineHome
+          fill="grey"
+          class="group-hover:fill-purple-100"
+          size={21}
+        />
       </IconButton>
     );
   },
