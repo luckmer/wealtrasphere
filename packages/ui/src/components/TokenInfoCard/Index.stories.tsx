@@ -22,3 +22,22 @@ export const Default: Story = {
     );
   },
 };
+
+export const LongList: Story = {
+  render: () => {
+    return (
+      <div class="m-[20px] flex flex-col gap-[1px] w-full">
+        <TokenInfoCard label="Label" description="Description" isFirst={true} />
+        <TokenInfoCard label="Label" description="Description" />
+        <TokenInfoCard label="Label" description="Description" />
+        <TokenInfoCard label="Label" description="Description" />
+        <TokenInfoCard label="Label" description="Description" />
+        <TokenInfoCard
+          label="Label"
+          description="Description"
+          isFirst={false}
+        />
+      </div>
+    );
+  },
+};
