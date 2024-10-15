@@ -1,15 +1,22 @@
 import "@styles/imports.css";
 import { Router } from "@solidjs/router";
-import { Suspense } from "solid-js";
 import { routes } from "./routes";
+import Sidebar from "@pages/Sidebar/Index";
 
 function App() {
   return (
-    <Suspense>
-      <div class="container">
-        <Router>{routes}</Router>
-      </div>
-    </Suspense>
+    <Router
+      root={(data) => {
+        return (
+          <div class="flex h-[100vh] w-[100vw]">
+            <Sidebar navigation={data.location.pathname} />
+            {data.children}
+          </div>
+        );
+      }}
+    >
+      {routes}
+    </Router>
   );
 }
 
