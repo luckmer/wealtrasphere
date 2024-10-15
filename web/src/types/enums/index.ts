@@ -1,5 +1,5 @@
 export enum NAVIGATION {
-  DASHBOARD = "dashboard",
-  SETTINGS = "settings",
-  ACCOUNTS = "accounts",
+  DASHBOARD = "/",
+  SETTINGS = "/settings",
+  ACCOUNTS = "/accounts",
 }

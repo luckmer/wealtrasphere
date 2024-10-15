@@ -6,7 +6,7 @@ import { VsAccount, VsSettings } from "solid-icons/vs";
 import { Component, createSignal } from "solid-js";
 
 export interface IProps {
-  navigation: NAVIGATION;
+  navigation: string;
 }
 
 const Sidebar: Component<IProps> = (props) => {
@@ -25,7 +25,7 @@ const Sidebar: Component<IProps> = (props) => {
       onMouseEnter={() => setShowButton(true)}
       onMouseLeave={() => setShowButton(false)}
       class="h-full bg-black-400 p-24 flex flex-col relative transition-width duration-[350ms] ease-in-out"
-      classList={{ "w-[225px]": rotate(), "w-full": !rotate() }}
+      classList={{ "w-[225px]": rotate(), "w-[93px]": !rotate() }}
     >
       <div
         class="absolute top-48 -translate-y-1/2 right-[-20px] transition-opacity duration-[350ms] ease-in-out"
@@ -42,7 +42,7 @@ const Sidebar: Component<IProps> = (props) => {
           }}
         />
       </div>
-      <div class="pt-30 flex flex-col gap-[12px]">
+      <div class="pt-30 flex flex-col h-full">
         <div
           class="transition-opacity duration-[350ms] ease-in-out pb-[12px]"
           classList={{
@@ -53,41 +53,49 @@ const Sidebar: Component<IProps> = (props) => {
             NAVIGATION
           </p>
         </div>
-        <IconButton
-          active={props.navigation === NAVIGATION.DASHBOARD}
-          hideText={!showText()}
-          title="Dashboard"
-        >
-          <AiOutlineHome
-            class="group-hover:fill-purple-100"
-            size={21}
-            fill={
-              props.navigation === NAVIGATION.DASHBOARD ? "#817DF7" : "grey"
-            }
-          />
-        </IconButton>
-        <IconButton
-          active={props.navigation === NAVIGATION.ACCOUNTS}
-          hideText={!showText()}
-          title="Accounts"
-        >
-          <VsAccount
-            fill={props.navigation === NAVIGATION.ACCOUNTS ? "#817DF7" : "grey"}
-            class="group-hover:fill-purple-100"
-            size={21}
-          />
-        </IconButton>
-        <IconButton
-          active={props.navigation === NAVIGATION.SETTINGS}
-          hideText={!showText()}
-          title="Settings"
-        >
-          <VsSettings
-            fill={props.navigation === NAVIGATION.SETTINGS ? "#817DF7" : "grey"}
-            class="group-hover:fill-purple-100"
-            size={21}
-          />
-        </IconButton>
+        <div class="h-full flex flex-col justify-between">
+          <div class="flex flex-col gap-[6px]">
+            <IconButton
+              active={props.navigation === NAVIGATION.DASHBOARD}
+              hideText={!showText()}
+              title="Dashboard"
+            >
+              <AiOutlineHome
+                class="group-hover:fill-purple-100"
+                size={21}
+                fill={
+                  props.navigation === NAVIGATION.DASHBOARD ? "#817DF7" : "grey"
+                }
+              />
+            </IconButton>
+            <IconButton
+              active={props.navigation === NAVIGATION.ACCOUNTS}
+              hideText={!showText()}
+              title="Accounts"
+            >
+              <VsAccount
+                fill={
+                  props.navigation === NAVIGATION.ACCOUNTS ? "#817DF7" : "grey"
+                }
+                class="group-hover:fill-purple-100"
+                size={21}
+              />
+            </IconButton>
+          </div>
+          <IconButton
+            active={props.navigation === NAVIGATION.SETTINGS}
+            hideText={!showText()}
+            title="Settings"
+          >
+            <VsSettings
+              fill={
+                props.navigation === NAVIGATION.SETTINGS ? "#817DF7" : "grey"
+              }
+              class="group-hover:fill-purple-100"
+              size={21}
+            />
+          </IconButton>
+        </div>
       </div>
     </div>
   );

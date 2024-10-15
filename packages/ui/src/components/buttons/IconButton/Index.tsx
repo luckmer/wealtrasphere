@@ -14,8 +14,7 @@ const IconButton: ParentComponent<IProps> = (props) => {
         "bg-black-300": props.active,
       }}
     >
-      <div>{props.children}</div>
-
+      {props.children}
       <div
         class="transition-opacity duration-[250ms] ease-in-out "
         classList={{
