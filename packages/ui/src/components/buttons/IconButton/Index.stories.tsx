@@ -13,7 +13,7 @@ type Story = StoryObj<typeof IconButton>;
 export const Default: Story = {
   render: () => {
     return (
-      <IconButton active={false} title="Portfolio">
+      <IconButton active={false} title="Portfolio" onClick={() => {}}>
         <AiOutlineHome
           fill="grey"
           class="group-hover:fill-purple-100"

@@ -12,6 +12,13 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const Default: Story = {
   render: () => {
-    return <Sidebar navigation={NAVIGATION.DASHBOARD} />;
+    return (
+      <Sidebar
+        navigation={NAVIGATION.DASHBOARD}
+        onClick={(path) => {
+          console.log("navigate", path);
+        }}
+      />
+    );
   },
 };

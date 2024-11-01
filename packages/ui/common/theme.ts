@@ -5,10 +5,13 @@ const theme = {
   },
   fontFamily: {},
   fontSize: {
-    h1: ["28px", "38px"],
-    h2: ["21px", "28px"],
-    body: ["16px", "20px"],
-    smallText: ["12px", "14px"],
+    h1: "28px",
+    h2: "22px",
+    h3: "20px",
+    caption: "14px",
+    body: "16px",
+    smallText: "12px",
+    textXs: "10px",
   },
   colors: {
     white: {
@@ -18,7 +21,8 @@ const theme = {
       100: "#D15861",
     },
     purple: {
-      100: "#817DF7",
+      200: "#817DF7",
+      100: "#9092FF",
     },
     blue: {
       900: "#1D2026",
@@ -26,13 +30,18 @@ const theme = {
       100: "#96BAF3",
     },
     green: {
-      100: "#67AF98",
+      300: "#67AF98",
+      200: "#70F9BB",
+      100: "#A2FBD5",
     },
+
     black: {
       900: "#000000",
       400: "#222222",
       300: "#2A2A2A",
+
       200: "#A2A2A2",
+      150: "#B8B8B8",
       100: "#ffffff",
     },
   },

@@ -14,6 +14,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
@@ -30,6 +33,9 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(vite@5.4.8)
     devDependencies:
+      daisyui:
+        specifier: 4.6.0
+        version: 4.6.0(postcss@8.4.47)
       tailwindcss:
         specifier: ^3.4.13
         version: 3.4.13
@@ -1088,13 +1094,13 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /@storybook/builder-vite@8.4.0-alpha.7(storybook@8.3.5)(vite@5.4.8):
-    resolution: {integrity: sha512-Q8as4xL7vrJtrZrukGopXGmrlPxXukLhmRIKT0INFJTBtEgHy3Gk4OEe5MOGIu50yMcHDBrx2+3ijAOzFsNw0g==}
+  /@storybook/builder-vite@8.4.0-beta.0(storybook@8.3.5)(vite@5.4.8):
+    resolution: {integrity: sha512-7SlyZ3XQRQju4GFlzNLS45KhUAfWnBexKnqqpL2sOPMgcTfIkahESZXhhi1lX4AwHT1hXSkKR23lUhgS39E3Fw==}
     peerDependencies:
-      storybook: ^8.4.0-alpha.7
+      storybook: ^8.4.0-beta.0
       vite: ^4.0.0 || ^5.0.0
     dependencies:
-      '@storybook/csf-plugin': 8.4.0-alpha.7(storybook@8.3.5)
+      '@storybook/csf-plugin': 8.4.0-beta.0(storybook@8.3.5)
       browser-assert: 1.2.1
       storybook: 8.3.5
       ts-dedent: 2.2.0
@@ -1135,10 +1141,10 @@ packages:
       - webpack-sources
     dev: true
 
-  /@storybook/csf-plugin@8.4.0-alpha.7(storybook@8.3.5):
-    resolution: {integrity: sha512-CndBjAxBqfjY19ZK22W80HEGDxJlLOTTl2JaIH0me7lTu46jXWfr4ly4NaaEHv2e2Tkzmk7hmK32g89laV/7ig==}
+  /@storybook/csf-plugin@8.4.0-beta.0(storybook@8.3.5):
+    resolution: {integrity: sha512-tsyl6txhgY3+nb8kuo1vbKF/G7BBXwJGZwvDhUBUBs/DVHhnxgc4t07wHNtqa1JYAV+v0Pwb10xvs6hK+9O55w==}
     peerDependencies:
-      storybook: ^8.4.0-alpha.7
+      storybook: ^8.4.0-beta.0
     dependencies:
       storybook: 8.3.5
       unplugin: 1.14.1
@@ -1889,6 +1895,17 @@ packages:
         optional: true
     dev: true
 
+  /class-variance-authority@0.7.0:
+    resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
+    dependencies:
+      clsx: 2.0.0
+    dev: false
+
+  /clsx@2.0.0:
+    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
@@ -1952,6 +1969,13 @@ packages:
       which: 2.0.2
     dev: true
 
+  /css-selector-tokenizer@0.8.0:
+    resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
+    dependencies:
+      cssesc: 3.0.0
+      fastparse: 1.1.2
+    dev: true
+
   /css.escape@1.5.1:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
     dev: true
@@ -1971,6 +1995,23 @@ packages:
 
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  /culori@3.3.0:
+    resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: true
+
+  /daisyui@4.6.0(postcss@8.4.47):
+    resolution: {integrity: sha512-B5ZB/sczXpp4LMdo/SZrtYY/U2hq+Vr9I15QawuWZ0VwgtSAbuZpAZUftKVryEsPuv3BM0yVlBED0nAmtis/dw==}
+    engines: {node: '>=16.9.0'}
+    dependencies:
+      css-selector-tokenizer: 0.8.0
+      culori: 3.3.0
+      picocolors: 1.1.0
+      postcss-js: 4.0.1(postcss@8.4.47)
+    transitivePeerDependencies:
+      - postcss
+    dev: true
 
   /data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
@@ -2294,6 +2335,10 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.8
+    dev: true
+
+  /fastparse@1.1.2:
+    resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
     dev: true
 
   /fastq@1.17.1:
@@ -3612,7 +3657,7 @@ packages:
     resolution: {integrity: sha512-dD+VMYC5fBBQNesVb+mjB0LOkZIf100SQFbjAt9/sDstNUvc5ce3yZwLYXzgcOc7jcSMkrBu/cZNRzEM4YIAyw==}
     engines: {node: ^14.18 || >=16}
     dependencies:
-      '@storybook/builder-vite': 8.4.0-alpha.7(storybook@8.3.5)(vite@5.4.8)
+      '@storybook/builder-vite': 8.4.0-beta.0(storybook@8.3.5)(vite@5.4.8)
     transitivePeerDependencies:
       - storybook
       - vite

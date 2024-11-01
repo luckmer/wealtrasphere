@@ -1,3 +1,4 @@
+import Typography from "@components/Typography/Index";
 import { Component } from "solid-js";
 
 export interface IProps {
@@ -16,14 +17,14 @@ const TokenInfoCard: Component<IProps> = (props) => {
       }}
     >
       <div>
-        <p class="text-black-200 text-[12px] font-bold tracking-[0.02em] h-[17px]">
+        <Typography color="grey" class="h-[17px]" text="smallBold">
           {props.label}
-        </p>
+        </Typography>
       </div>
       <div>
-        <p class="text-white-100 text-[12px] font-bold tracking-[0.02em] h-[17px]">
-          {props.description}
-        </p>
+        <Typography color="grey" class="h-[17px]" text="smallBold">
+          {props.label}
+        </Typography>
       </div>
     </div>
   );

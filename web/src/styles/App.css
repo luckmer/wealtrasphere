@@ -1,7 +1,7 @@
 :root body {
   font-variant-numeric: tabular-nums;
   font-family: "poppins", "Noto Sans CJK", sans-serif, "Twemoji Chromium";
-  background-color: #181818;
+  background-color: #171717;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,8 +17,8 @@
   height: 100%;
 }
 
-.test {
-  height: 100vh;
-  width: 200px;
-  background-color: #222222;
+.modal-backdrop {
+  outline: none !important;
+  border: none !important;
+  user-select: none !important;
 }

@@ -1,35 +1,35 @@
+import { typography } from "@common/typography";
+import Typography from "@components/Typography/Index";
+import { VariantProps } from "class-variance-authority";
 import { ParentComponent } from "solid-js";
 
 export interface IProps {
+  onClick: () => void;
   title: string;
   hideText?: boolean;
-  active: boolean;
+  active?: boolean;
+  class?: string;
 }
 
-const IconButton: ParentComponent<IProps> = (props) => {
+export interface ButtonProps extends IProps, VariantProps<typeof typography> {}
+
+const IconButton: ParentComponent<ButtonProps> = (props) => {
   return (
     <div
-      class="rounded-6 flex flex-row gap-12 p-12 group group-hover:fill-white cursor-pointer transition-rotate duration-[250ms]"
-      classList={{
-        "bg-black-300": props.active,
+      onClick={() => {
+        props.onClick();
       }}
+      class="rounded-6 flex flex-row gap-12 p-12 group group-hover:fill-white cursor-pointer transition-rotate duration-[250ms] w-full items-center"
+      classList={{ "bg-black-300": props.active ?? false }}
     >
       {props.children}
       <div
+        classList={{ "w-[0px] opacity-0 invisible absolute": props.hideText }}
         class="transition-opacity duration-[250ms] ease-in-out "
-        classList={{
-          "w-[0px] opacity-0 invisible absolute": props.hideText,
-        }}
       >
-        <p
-          class="not-italic text-[14px] group-hover:text-white-100 font-medium tracking-[0.02em]"
-          classList={{
-            "font-medium text-white-100": props.active,
-            "font-medium text-black-200": !props.active,
-          }}
-        >
+        <Typography {...props} color={props.color}>
           {props.title}
-        </p>
+        </Typography>
       </div>
     </div>
   );

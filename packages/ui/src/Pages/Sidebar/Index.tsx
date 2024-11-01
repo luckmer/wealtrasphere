@@ -1,5 +1,6 @@
 import IconButton from "@components/buttons/IconButton/Index";
 import RoundedButton from "@components/buttons/RoundedButton/Index";
+import Typography from "@components/Typography/Index";
 import { NAVIGATION } from "@interfaces/enums/index";
 import { AiOutlineHome } from "solid-icons/ai";
 import { VsAccount, VsSettings } from "solid-icons/vs";
@@ -7,6 +8,7 @@ import { Component, createSignal } from "solid-js";
 
 export interface IProps {
   navigation: string;
+  onClick: (navigation: NAVIGATION) => void;
 }
 
 const Sidebar: Component<IProps> = (props) => {
@@ -16,16 +18,16 @@ const Sidebar: Component<IProps> = (props) => {
 
   return (
     <div
+      class="h-full bg-black-400 p-24 flex flex-col relative transition-width duration-[350ms] ease-in-out"
+      classList={{ "w-[250px]": rotate(), "w-[96px]": !rotate() }}
+      onMouseLeave={() => setShowButton(false)}
+      onMouseEnter={() => setShowButton(true)}
       onTransitionEnd={(e) => {
         if (e.propertyName !== "width") return;
         if (rotate()) {
           setShowText(true);
         }
       }}
-      onMouseEnter={() => setShowButton(true)}
-      onMouseLeave={() => setShowButton(false)}
-      class="h-full bg-black-400 p-24 flex flex-col relative transition-width duration-[350ms] ease-in-out"
-      classList={{ "w-[225px]": rotate(), "w-[93px]": !rotate() }}
     >
       <div
         class="absolute top-48 -translate-y-1/2 right-[-20px] transition-opacity duration-[350ms] ease-in-out"
@@ -49,19 +51,26 @@ const Sidebar: Component<IProps> = (props) => {
             "w-[0px] opacity-0 invisible": !showText(),
           }}
         >
-          <p class="text-white-100 text-[10px] font-bold tracking-[0.02em]">
+          <Typography color="white" text="tinyBold">
             NAVIGATION
-          </p>
+          </Typography>
         </div>
         <div class="h-full flex flex-col justify-between">
-          <div class="flex flex-col gap-[6px]">
+          <div class="flex flex-col gap-[6px] justify-center">
             <IconButton
+              color={
+                props.navigation === NAVIGATION.DASHBOARD ? "white" : "grey"
+              }
+              onClick={() => {
+                props.onClick(NAVIGATION.DASHBOARD);
+              }}
               active={props.navigation === NAVIGATION.DASHBOARD}
+              class="group-hover:text-white-100"
               hideText={!showText()}
               title="Dashboard"
             >
               <AiOutlineHome
-                class="group-hover:fill-purple-100"
+                class="group-hover:fill-purple-200"
                 size={21}
                 fill={
                   props.navigation === NAVIGATION.DASHBOARD ? "#817DF7" : "grey"
@@ -69,30 +78,42 @@ const Sidebar: Component<IProps> = (props) => {
               />
             </IconButton>
             <IconButton
+              color={
+                props.navigation === NAVIGATION.ACCOUNTS ? "white" : "grey"
+              }
+              onClick={() => {
+                props.onClick(NAVIGATION.ACCOUNTS);
+              }}
               active={props.navigation === NAVIGATION.ACCOUNTS}
+              class="group-hover:text-white-100"
               hideText={!showText()}
               title="Accounts"
             >
               <VsAccount
+                class="group-hover:fill-purple-200"
+                size={21}
                 fill={
                   props.navigation === NAVIGATION.ACCOUNTS ? "#817DF7" : "grey"
                 }
-                class="group-hover:fill-purple-100"
-                size={21}
               />
             </IconButton>
           </div>
           <IconButton
+            color={props.navigation === NAVIGATION.SETTINGS ? "white" : "grey"}
+            onClick={() => {
+              props.onClick(NAVIGATION.SETTINGS);
+            }}
             active={props.navigation === NAVIGATION.SETTINGS}
+            class="group-hover:text-white-100"
             hideText={!showText()}
             title="Settings"
           >
             <VsSettings
+              class="group-hover:fill-purple-200"
+              size={21}
               fill={
                 props.navigation === NAVIGATION.SETTINGS ? "#817DF7" : "grey"
               }
-              class="group-hover:fill-purple-100"
-              size={21}
             />
           </IconButton>
         </div>
