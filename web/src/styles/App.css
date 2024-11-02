@@ -22,3 +22,31 @@
   border: none !important;
   user-select: none !important;
 }
+
+.step-neutral::after {
+  color: #fff !important;
+  background-color: #3d3e40 !important;
+}
+
+.step-primary::after {
+  background-color: #ab9ff2 !important;
+  height: 24px !important;
+  width: 24px !important;
+  font-size: 14px;
+}
+
+.step-neutral::after {
+  height: 24px !important;
+  width: 24px !important;
+  font-size: 14px;
+}
+
+.step-primary::before {
+  height: 2px !important;
+  background-color: #ab9ff2 !important;
+}
+
+.step-neutral::before {
+  height: 2px !important;
+  background-color: #3d3e40 !important;
+}

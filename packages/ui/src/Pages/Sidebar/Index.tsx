@@ -73,7 +73,7 @@ const Sidebar: Component<IProps> = (props) => {
                 class="group-hover:fill-purple-200"
                 size={21}
                 fill={
-                  props.navigation === NAVIGATION.DASHBOARD ? "#817DF7" : "grey"
+                  props.navigation === NAVIGATION.DASHBOARD ? "#AB9FF2" : "grey"
                 }
               />
             </IconButton>
@@ -93,7 +93,7 @@ const Sidebar: Component<IProps> = (props) => {
                 class="group-hover:fill-purple-200"
                 size={21}
                 fill={
-                  props.navigation === NAVIGATION.ACCOUNTS ? "#817DF7" : "grey"
+                  props.navigation === NAVIGATION.ACCOUNTS ? "#AB9FF2" : "grey"
                 }
               />
             </IconButton>
@@ -112,7 +112,7 @@ const Sidebar: Component<IProps> = (props) => {
               class="group-hover:fill-purple-200"
               size={21}
               fill={
-                props.navigation === NAVIGATION.SETTINGS ? "#817DF7" : "grey"
+                props.navigation === NAVIGATION.SETTINGS ? "#AB9FF2" : "grey"
               }
             />
           </IconButton>

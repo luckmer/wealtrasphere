@@ -13,7 +13,7 @@ const NavigationBar: Component<IProps> = (props) => {
       <Typography text="h2Medium" color="white">
         Accounts
       </Typography>
-      <div class="bg-purple-100 hover:bg-purple-200 rounded-6">
+      <div class="bg-purple-200 hover:bg-purple-100 duration-[250ms] rounded-6">
         <IconButton
           onClick={props.onClickAddAccount}
           title="Add account"

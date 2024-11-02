@@ -23,7 +23,7 @@ export const Modal: ParentComponent<IProps> = (props) => {
   return (
     <dialog id={props.id} class="modal select-none">
       <div class="absolute bg-transparent overflow-visible">
-        <div class="min-w-[500px] bg-black-300 p-[12px] rounded-[6px] border border-solid border-black-400 z-10 flex flex-col gap-[12px]">
+        <div class="min-w-[600px] bg-black-300 p-12 rounded-[6px] border border-solid border-black-400 z-10 flex flex-col gap-[12px]">
           <ModalHeader
             disabled={props.disabled}
             label={props.label}
