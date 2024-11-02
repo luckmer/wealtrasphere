@@ -78,14 +78,21 @@ const AddAccountModal = () => {
         <div class="flex flex-row w-full justify-end gap-12">
           <DefaultButton
             onClick={() => {
+              if (step() === ADD_ACCOUNT.INIT) {
+                setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                return;
+              }
+
               const steps = Object.keys(
                 progressbarStep()
               ) as unknown as ADD_ACCOUNT[];
-              const step: ADD_ACCOUNT | undefined = steps[stepIndex() - 1];
-              if (!step) return;
+              const currentStep: ADD_ACCOUNT | undefined =
+                steps[stepIndex() - 1];
+
+              if (!currentStep) return;
 
               setStepIndex(stepIndex() - 1);
-              setStep(step);
+              setStep(currentStep);
             }}
             title={step() === ADD_ACCOUNT.INIT ? "Cancel" : "Back"}
             color="white"
@@ -96,11 +103,12 @@ const AddAccountModal = () => {
               const steps = Object.keys(
                 progressbarStep()
               ) as unknown as ADD_ACCOUNT[];
-              const step: ADD_ACCOUNT | undefined = steps[stepIndex() + 1];
-              if (!step) return;
+              const currentStep: ADD_ACCOUNT | undefined =
+                steps[stepIndex() + 1];
+              if (!currentStep) return;
 
               setStepIndex(stepIndex() + 1);
-              setStep(step);
+              setStep(currentStep);
             }}
             title="Continue"
             active
