@@ -5,6 +5,7 @@ import { NAVIGATION } from "@interfaces/enums/index";
 import { AiOutlineHome } from "solid-icons/ai";
 import { VsAccount, VsSettings } from "solid-icons/vs";
 import { Component, createSignal } from "solid-js";
+import theme from "@theme/theme";
 
 export interface IProps {
   navigation: string;
@@ -73,7 +74,9 @@ const Sidebar: Component<IProps> = (props) => {
                 class="group-hover:fill-purple-200"
                 size={21}
                 fill={
-                  props.navigation === NAVIGATION.DASHBOARD ? "#AB9FF2" : "grey"
+                  props.navigation === NAVIGATION.DASHBOARD
+                    ? theme.colors.purple[200]
+                    : "grey"
                 }
               />
             </IconButton>
@@ -93,7 +96,9 @@ const Sidebar: Component<IProps> = (props) => {
                 class="group-hover:fill-purple-200"
                 size={21}
                 fill={
-                  props.navigation === NAVIGATION.ACCOUNTS ? "#AB9FF2" : "grey"
+                  props.navigation === NAVIGATION.ACCOUNTS
+                    ? theme.colors.purple[200]
+                    : "grey"
                 }
               />
             </IconButton>
@@ -112,7 +117,9 @@ const Sidebar: Component<IProps> = (props) => {
               class="group-hover:fill-purple-200"
               size={21}
               fill={
-                props.navigation === NAVIGATION.SETTINGS ? "#AB9FF2" : "grey"
+                props.navigation === NAVIGATION.SETTINGS
+                  ? theme.colors.purple[200]
+                  : "grey"
               }
             />
           </IconButton>

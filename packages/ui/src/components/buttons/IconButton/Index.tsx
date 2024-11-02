@@ -1,6 +1,7 @@
 import { typography } from "@common/typography";
 import Typography from "@components/Typography/Index";
 import { VariantProps } from "class-variance-authority";
+import { clsx } from "clsx";
 import { ParentComponent } from "solid-js";
 
 export interface IProps {
@@ -9,18 +10,26 @@ export interface IProps {
   hideText?: boolean;
   active?: boolean;
   class?: string;
+  reverse?: boolean;
+  styles?: string;
 }
 
 export interface ButtonProps extends IProps, VariantProps<typeof typography> {}
 
 const IconButton: ParentComponent<ButtonProps> = (props) => {
   return (
-    <div
+    <button
       onClick={() => {
         props.onClick();
       }}
-      class="rounded-6 flex flex-row gap-12 p-12 group group-hover:fill-white cursor-pointer transition-rotate duration-[250ms] w-full items-center"
-      classList={{ "bg-black-300": props.active ?? false }}
+      class={clsx(
+        props.styles,
+        "rounded-6 flex flex-row gap-12 p-12 group group-hover:fill-white cursor-pointer transition-rotate duration-[250ms] w-full items-center"
+      )}
+      classList={{
+        "bg-black-300": props.active ?? false,
+        "flex-row-reverse justify-between": props.reverse,
+      }}
     >
       {props.children}
       <div
@@ -31,7 +40,7 @@ const IconButton: ParentComponent<ButtonProps> = (props) => {
           {props.title}
         </Typography>
       </div>
-    </div>
+    </button>
   );
 };
 

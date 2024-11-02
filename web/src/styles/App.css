@@ -17,10 +17,18 @@
   height: 100%;
 }
 
+::placeholder {
+  color: grey !important;
+}
+
 .modal-backdrop {
   outline: none !important;
   border: none !important;
   user-select: none !important;
+}
+
+.step {
+  font-size: 12px !important;
 }
 
 .step-neutral::after {
@@ -32,13 +40,11 @@
   background-color: #ab9ff2 !important;
   height: 24px !important;
   width: 24px !important;
-  font-size: 14px;
 }
 
 .step-neutral::after {
   height: 24px !important;
   width: 24px !important;
-  font-size: 14px;
 }
 
 .step-primary::before {
