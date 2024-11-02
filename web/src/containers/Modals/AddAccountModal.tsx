@@ -41,7 +41,6 @@ const AddAccountModal = () => {
     if (progressbarStep()[step()] === 1 && accountType() === undefined) {
       return false;
     }
-
     if (progressbarStep()[step()] === 2 && accountName() === undefined) {
       return false;
     }
@@ -49,12 +48,10 @@ const AddAccountModal = () => {
       return false;
     }
 
-    if (progressbarStep()[step()] === 4) {
-      return true;
-    }
-
     return true;
   });
+
+  // TODO: we have to validate if provided address is valid
 
   return (
     <Modal
@@ -165,6 +162,9 @@ const AddAccountModal = () => {
         </Switch>
         <div class="flex flex-row w-full justify-end gap-12">
           <DefaultButton
+            title={step() === ADD_ACCOUNT.INIT ? "Cancel" : "Back"}
+            color="white"
+            text="caption"
             onClick={() => {
               if (step() === ADD_ACCOUNT.INIT) {
                 setOpenModal({ open: false, type: MODAL_TYPE.NONE });
@@ -182,11 +182,12 @@ const AddAccountModal = () => {
               setStepIndex(stepIndex() - 1);
               setStep(currentStep);
             }}
-            title={step() === ADD_ACCOUNT.INIT ? "Cancel" : "Back"}
-            color="white"
-            text="caption"
           />
           <DefaultButton
+            title={step() !== ADD_ACCOUNT.UPLOAD ? "Continue" : "Confirm"}
+            active={enableNextStep()}
+            disabled={!enableNextStep()}
+            text="caption"
             onClick={() => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
                 setOpenModal({ open: false, type: MODAL_TYPE.NONE });
@@ -203,10 +204,6 @@ const AddAccountModal = () => {
               setStepIndex(stepIndex() + 1);
               setStep(currentStep);
             }}
-            title={step() !== ADD_ACCOUNT.UPLOAD ? "Continue" : "Confirm"}
-            active={enableNextStep()}
-            disabled={!enableNextStep()}
-            text="caption"
           />
         </div>
       </div>
