@@ -20,9 +20,6 @@ impl SolanaManager {
             .get_balance(&pubkey)
             .map_err(|err| format!("Error fetching balance: {}", err))
     }
-    validate_address(){
-        
-    }
 }
 
 #[cfg(test)]

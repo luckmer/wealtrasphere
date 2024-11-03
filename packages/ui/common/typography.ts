@@ -19,6 +19,7 @@ export const typography = cva("not-italic select-none", {
     color: {
       white: "text-white-100",
       grey: "text-black-200",
+      red: "text-red-100",
       black: "text-black-900",
     },
     ellipsis: {

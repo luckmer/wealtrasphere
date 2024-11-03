@@ -10,13 +10,15 @@ import { ADD_ACCOUNT, MODAL_TYPE } from "@interfaces/enums";
 import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 import theme from "@theme/theme";
+import { isOnCurve } from "@utils/Solana/Index";
 import { RiArrowsArrowDownSLine } from "solid-icons/ri";
-import { createMemo, createSignal, Match, Switch } from "solid-js";
+import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
 
 const AddAccountModal = () => {
   const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT);
   const [stepIndex, setStepIndex] = createSignal<number>(0);
   const [revert, setRevert] = createSignal<boolean>(false);
+  const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
 
   const [accountType, setAccountType] = createSignal<string | undefined>(
     undefined
@@ -44,14 +46,17 @@ const AddAccountModal = () => {
     if (progressbarStep()[step()] === 2 && accountName() === undefined) {
       return false;
     }
-    if (progressbarStep()[step()] === 3 && accountAddress() === undefined) {
+
+    if (
+      progressbarStep()[step()] === 3 &&
+      (accountAddress() === undefined ||
+        (accountAddress() !== undefined && invalidAddress()))
+    ) {
       return false;
     }
 
     return true;
   });
-
-  // TODO: we have to validate if provided address is valid
 
   return (
     <Modal
@@ -137,13 +142,33 @@ const AddAccountModal = () => {
               <Typography text="body" color="white">
                 Setup address
               </Typography>
-              <Typography text="caption" color="white">
-                Drop wallet address. (Solana).
-              </Typography>
+              <div class="flex flex-row justify-between">
+                <Typography text="caption" color="white">
+                  Drop wallet address. (Solana).
+                </Typography>
+                <Show when={invalidAddress()}>
+                  <Typography text="caption" color="red">
+                    Invalid address
+                  </Typography>
+                </Show>
+              </div>
               <DefaultInput
                 value={accountAddress() ?? ""}
                 placeholder="Account Address"
+                error={invalidAddress() ? "Invalid address" : undefined}
                 onChange={(value) => {
+                  if (!value) {
+                    setAccountAddress(undefined);
+                    setInvalidAddress(false);
+                    return;
+                  }
+
+                  try {
+                    setInvalidAddress(false);
+                    isOnCurve(value);
+                  } catch {
+                    setInvalidAddress(true);
+                  }
                   setAccountAddress(value);
                 }}
               />
