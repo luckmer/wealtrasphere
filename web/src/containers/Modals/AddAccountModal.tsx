@@ -27,6 +27,7 @@ const AddAccountModal = () => {
   const [stepIndex, setStepIndex] = createSignal<number>(0);
   const [revert, setRevert] = createSignal<boolean>(false);
   const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
+  const [loading, setLoading] = createSignal<boolean>(false);
 
   const [accountType, setAccountType] = createSignal<ACCOUNT_TYPE | undefined>(
     undefined
@@ -74,6 +75,7 @@ const AddAccountModal = () => {
       disabled={false}
       id="id"
       onClickCloseModal={() => {
+        if (loading()) return;
         setOpenModal({ open: false, type: MODAL_TYPE.NONE });
       }}
     >
@@ -197,6 +199,7 @@ const AddAccountModal = () => {
           <DefaultButton
             title={step() === ADD_ACCOUNT.INIT ? "Cancel" : "Back"}
             color="white"
+            disabled={loading()}
             text="caption"
             onClick={() => {
               if (step() === ADD_ACCOUNT.INIT) {
@@ -217,12 +220,14 @@ const AddAccountModal = () => {
             }}
           />
           <DefaultButton
+            loading={loading()}
             title={step() !== ADD_ACCOUNT.UPLOAD ? "Continue" : "Confirm"}
-            active={enableNextStep()}
-            disabled={!enableNextStep()}
+            active={enableNextStep() && !loading()}
+            disabled={!enableNextStep() || loading()}
             text="caption"
             onClick={async () => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
+                setLoading(true);
                 const newAccount: INewAccount = {
                   account_address: accountAddress() ?? "",
                   chain: BLOCKCHAIN.SOLANA,
@@ -233,6 +238,7 @@ const AddAccountModal = () => {
 
                 await invoke("create_account", { newAccount });
 
+                setLoading(false);
                 // setOpenModal({ open: false, type: MODAL_TYPE.NONE });
                 return;
               }

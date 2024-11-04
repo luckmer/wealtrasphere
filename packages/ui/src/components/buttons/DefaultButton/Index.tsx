@@ -1,7 +1,7 @@
 import { typography } from "@common/typography";
 import Typography from "@components/Typography/Index";
 import { VariantProps } from "class-variance-authority";
-import { Component } from "solid-js";
+import { Component, Show } from "solid-js";
 
 export interface IProps {
   onClick: () => void;
@@ -9,11 +9,13 @@ export interface IProps {
   active?: boolean;
   styles?: string;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 export interface ButtonProps extends IProps, VariantProps<typeof typography> {}
 
 const DefaultButton: Component<ButtonProps> = (props) => {
+  console.log(props.loading);
   return (
     <button
       disabled={props.disabled}
@@ -29,9 +31,18 @@ const DefaultButton: Component<ButtonProps> = (props) => {
         "rounded-6 outline-none flex flex-row gap-12 p-12  group group-hover:fill-white cursor-pointer transition-rotate duration-[250ms] items-center"
       }
     >
-      <Typography {...props} color={props?.color ?? "black"}>
-        {props.title}
-      </Typography>
+      <Show
+        when={props.loading}
+        fallback={
+          <Typography {...props} color={props?.color ?? "black"}>
+            {props.title}
+          </Typography>
+        }
+      >
+        <div class="flex w-[51px] h-[16px] justify-center items-center">
+          <span class="loading loading-bars loading-xs"></span>
+        </div>
+      </Show>
     </button>
   );
 };
