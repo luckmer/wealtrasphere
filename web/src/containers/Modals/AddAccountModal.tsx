@@ -6,13 +6,21 @@ import DefaultInput from "@components/Inputs/DefaultInput/Index";
 import { Modal } from "@components/Modal/Index";
 import Progressbar from "@components/Progressbar/Index";
 import Typography from "@components/Typography/Index";
-import { ADD_ACCOUNT, MODAL_TYPE } from "@interfaces/enums";
+import {
+  ACCOUNT_TYPE,
+  ADD_ACCOUNT,
+  BLOCKCHAIN,
+  MODAL_TYPE,
+} from "@interfaces/enums";
+import { INewAccount } from "@interfaces/interfaces";
 import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
+import { invoke } from "@tauri-apps/api";
 import theme from "@theme/theme";
 import { isOnCurve } from "@utils/Solana/Index";
 import { RiArrowsArrowDownSLine } from "solid-icons/ri";
 import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
+import { v7 } from "uuid";
 
 const AddAccountModal = () => {
   const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT);
@@ -20,7 +28,7 @@ const AddAccountModal = () => {
   const [revert, setRevert] = createSignal<boolean>(false);
   const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
 
-  const [accountType, setAccountType] = createSignal<string | undefined>(
+  const [accountType, setAccountType] = createSignal<ACCOUNT_TYPE | undefined>(
     undefined
   );
   const [accountName, setAccountName] = createSignal<string | undefined>(
@@ -106,7 +114,7 @@ const AddAccountModal = () => {
                   />
                 </IconButton>
                 <DropdownList
-                  data={["Blockchain"]}
+                  data={Object.values(ACCOUNT_TYPE)}
                   onClick={(name) => {
                     const elem: Element | null = document.activeElement;
                     if (elem instanceof HTMLElement) {
@@ -213,9 +221,19 @@ const AddAccountModal = () => {
             active={enableNextStep()}
             disabled={!enableNextStep()}
             text="caption"
-            onClick={() => {
+            onClick={async () => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
-                setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                const newAccount: INewAccount = {
+                  account_address: accountAddress() ?? "",
+                  chain: BLOCKCHAIN.SOLANA,
+                  account_type: accountType() ?? ACCOUNT_TYPE.BLOCKCHAIN,
+                  account_name: accountName() ?? "Default account",
+                  id: v7(),
+                };
+
+                await invoke("create_account", { newAccount });
+
+                // setOpenModal({ open: false, type: MODAL_TYPE.NONE });
                 return;
               }
 

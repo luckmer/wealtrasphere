@@ -1,5 +1,5 @@
-pub mod index;
-pub mod rpc;
+pub mod rpc_service;
+pub mod rpc_static;
 
-pub use index::*;
-pub use rpc::*;
+pub use rpc_service::*;
+pub use rpc_static::*;

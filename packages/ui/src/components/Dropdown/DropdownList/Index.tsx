@@ -1,10 +1,11 @@
 import { Component, For } from "solid-js";
 import DropdownItem from "../DropdownItem/Index";
+import { ACCOUNT_TYPE } from "@interfaces/enums";
 
 export interface IProps {
-  onClick: (name: string) => void;
+  onClick: (name: ACCOUNT_TYPE) => void;
   activeElement: string;
-  data: string[];
+  data: ACCOUNT_TYPE[];
 }
 
 const DropdownList: Component<IProps> = (props) => {

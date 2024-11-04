@@ -1,3 +1,3 @@
-pub mod solana;
+pub mod solana_service;
 
-pub use solana::*;
+pub use solana_service::*;
