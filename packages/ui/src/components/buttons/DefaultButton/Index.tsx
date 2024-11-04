@@ -15,7 +15,6 @@ export interface IProps {
 export interface ButtonProps extends IProps, VariantProps<typeof typography> {}
 
 const DefaultButton: Component<ButtonProps> = (props) => {
-  console.log(props.loading);
   return (
     <button
       disabled={props.disabled}
