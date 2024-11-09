@@ -35,6 +35,7 @@ custom-protocol = [
 ]
 
 [workspace.dependencies]
+anyhow = "1.0.93"
 tauri = "1"
 serde = { version = "1", features = [
   "derive",

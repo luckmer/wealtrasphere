@@ -6,4 +6,6 @@ edition = "2021"
 [dependencies]
 tauri = { workspace = true }
 serde = { workspace = true }
+
 database = { path = "../database" }
+blockchain = { path = "../blockchain" }

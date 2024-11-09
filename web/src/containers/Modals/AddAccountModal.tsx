@@ -17,6 +17,7 @@ import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 import { invoke } from "@tauri-apps/api";
 import theme from "@theme/theme";
+import { formatErrors } from "@utils/index";
 import { isOnCurve } from "@utils/Solana/Index";
 import { RiArrowsArrowDownSLine } from "solid-icons/ri";
 import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
@@ -24,10 +25,11 @@ import { v7 } from "uuid";
 
 const AddAccountModal = () => {
   const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT);
+  const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
+  const [error, setError] = createSignal<string | undefined>(undefined);
+  const [loading, setLoading] = createSignal<boolean>(false);
   const [stepIndex, setStepIndex] = createSignal<number>(0);
   const [revert, setRevert] = createSignal<boolean>(false);
-  const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
-  const [loading, setLoading] = createSignal<boolean>(false);
 
   const [accountType, setAccountType] = createSignal<ACCOUNT_TYPE | undefined>(
     undefined
@@ -186,12 +188,31 @@ const AddAccountModal = () => {
           </Match>
           <Match when={step() === ADD_ACCOUNT.UPLOAD}>
             <div class="flex flex-col gap-12">
-              <Typography text="body" color="white">
-                Almost there!
-              </Typography>
-              <Typography text="caption" color="white">
-                Click Confirm to finish process and create your account.
-              </Typography>
+              <Show
+                when={typeof error() !== "undefined"}
+                fallback={
+                  <Typography text="body" color="white">
+                    Almost there!
+                  </Typography>
+                }
+              >
+                <Typography text="body" color="white">
+                  Oops!
+                </Typography>
+              </Show>
+
+              <Show
+                when={typeof error() !== "undefined"}
+                fallback={
+                  <Typography text="caption" color="white">
+                    Click Confirm to finish process and create your account.
+                  </Typography>
+                }
+              >
+                <Typography text="caption" color="red">
+                  {error()}
+                </Typography>
+              </Show>
             </div>
           </Match>
         </Switch>
@@ -205,6 +226,10 @@ const AddAccountModal = () => {
               if (step() === ADD_ACCOUNT.INIT) {
                 setOpenModal({ open: false, type: MODAL_TYPE.NONE });
                 return;
+              }
+
+              if (typeof error() !== "undefined") {
+                setError(undefined);
               }
 
               const steps = Object.keys(
@@ -228,6 +253,8 @@ const AddAccountModal = () => {
             onClick={async () => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
                 setLoading(true);
+                setError(undefined);
+
                 const newAccount: INewAccount = {
                   account_address: accountAddress() ?? "",
                   chain: BLOCKCHAIN.SOLANA,
@@ -236,10 +263,20 @@ const AddAccountModal = () => {
                   id: v7(),
                 };
 
-                await invoke("create_account", { newAccount });
-
-                setLoading(false);
-                // setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                try {
+                  const status = await invoke("create_account", { newAccount });
+                  setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                  console.log("connection status", status);
+                } catch (err: unknown) {
+                  if (err instanceof Error) {
+                    setError(formatErrors(err.message));
+                  }
+                  if (typeof err === "string") {
+                    setError(formatErrors(err));
+                  }
+                } finally {
+                  setLoading(false);
+                }
                 return;
               }
 

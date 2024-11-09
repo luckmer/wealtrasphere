@@ -1,39 +1,30 @@
-use crate::SolanaRpcManager;
+use database::NewAccount;
+use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;
 use std::str::FromStr;
 
-pub struct SolanaManager {}
-
-impl SolanaManager {
-    pub fn init_connection() -> SolanaRpcManager {
-        SolanaRpcManager::new()
-    }
-
-    pub fn get_wallet_balance(address: &str) -> Result<u64, String> {
-        let rpc_manager = SolanaManager::init_connection();
-        let public_key = address.to_string();
-
-        let pubkey =
-            Pubkey::from_str(&public_key).map_err(|_| "Invalid public key format".to_string())?;
-
-        rpc_manager
-            .get_balance(&pubkey)
-            .map_err(|err| format!("Error fetching balance: {}", err))
-    }
+pub struct SolanaManager {
+    client: RpcClient,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+impl SolanaManager {
+    pub fn new(rpc_client: RpcClient) -> Self {
+        SolanaManager { client: rpc_client }
+    }
 
-    #[test]
-    fn get_wallet_balance_test() {
-        match SolanaManager::get_wallet_balance("Ar51584zpbMp9Qw8NDoN47H3FyDGCSXrGq6ypXXnNBkU") {
-            Ok(_) => {
-                assert!(true);
-            }
-            Err(_) => {
-                assert!(false);
+    pub fn get_new_account(&self, new_account: NewAccount) -> Result<u64, u64> {
+        let address = new_account.account_address.to_string();
+        let pubkey = Pubkey::from_str(&address).unwrap();
+
+        self.get_balance(&pubkey)
+    }
+
+    pub fn get_balance(&self, pubkey: &Pubkey) -> Result<u64, u64> {
+        match self.client.get_balance(&pubkey) {
+            Ok(balance) => Ok(balance),
+            Err(err) => {
+                println!("Failed to get balance: {}", err);
+                Ok(0)
             }
         }
     }
