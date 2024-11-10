@@ -535,6 +535,7 @@ dependencies = [
  "database",
  "lazy_static",
  "mockall",
+ "serde",
  "serde_json",
  "solana-client",
  "solana-sdk",

@@ -17,7 +17,6 @@ import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 import { invoke } from "@tauri-apps/api";
 import theme from "@theme/theme";
-import { formatErrors } from "@utils/index";
 import { isOnCurve } from "@utils/Solana/Index";
 import { RiArrowsArrowDownSLine } from "solid-icons/ri";
 import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
@@ -140,13 +139,28 @@ const AddAccountModal = () => {
               <Typography text="caption" color="white">
                 Choose an account type to define your investment profile.
               </Typography>
-              <DefaultInput
-                value={accountName() ?? ""}
-                placeholder="Account name"
-                onChange={(value) => {
-                  setAccountName(value);
-                }}
-              />
+              <div class="w-full flex flex-row justify-center items-center gap-12 bg-black-400 rounded-4 pr-12">
+                <DefaultInput
+                  value={accountName() ?? ""}
+                  placeholder="Account name"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length > 50) {
+                      e.target.value = accountName() ?? "";
+                      return;
+                    }
+
+                    if (!value.trim().length) {
+                      setAccountName(undefined);
+                      return;
+                    }
+                    setAccountName(value.trim());
+                  }}
+                />
+                <Typography text="caption" color="white">
+                  {accountName()?.length ?? 0}/50
+                </Typography>
+              </div>
             </div>
           </Match>
           <Match when={step() === ADD_ACCOUNT.ADDRESS}>
@@ -168,13 +182,14 @@ const AddAccountModal = () => {
                 value={accountAddress() ?? ""}
                 placeholder="Account Address"
                 error={invalidAddress() ? "Invalid address" : undefined}
-                onChange={(value) => {
+                onChange={(event) => {
+                  const value = event.target.value;
+
                   if (!value) {
                     setAccountAddress(undefined);
                     setInvalidAddress(false);
                     return;
                   }
-
                   try {
                     setInvalidAddress(false);
                     isOnCurve(value);
@@ -200,7 +215,6 @@ const AddAccountModal = () => {
                   Oops!
                 </Typography>
               </Show>
-
               <Show
                 when={typeof error() !== "undefined"}
                 fallback={
@@ -269,10 +283,10 @@ const AddAccountModal = () => {
                   console.log("connection status", status);
                 } catch (err: unknown) {
                   if (err instanceof Error) {
-                    setError(formatErrors(err.message));
+                    setError(err.message);
                   }
                   if (typeof err === "string") {
-                    setError(formatErrors(err));
+                    setError(err);
                   }
                 } finally {
                   setLoading(false);

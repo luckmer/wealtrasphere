@@ -1,6 +1,5 @@
 use blockchain::{solana::rpc::RpcManager, SolanaManager};
-use database::{Blockchain, NewAccount};
-
+use database::{AccountDetails, Blockchain, NewAccount};
 pub struct AccountManager {}
 
 impl AccountManager {
@@ -8,7 +7,7 @@ impl AccountManager {
         AccountManager {}
     }
 
-    pub fn create_new_account(&self, new_account: NewAccount) -> Result<NewAccount, String> {
+    pub fn create_new_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
         let chain = new_account.chain.clone();
 
         match chain {
@@ -16,7 +15,7 @@ impl AccountManager {
         }
     }
 
-    pub fn create_solana_account(&self, new_account: NewAccount) -> Result<NewAccount, String> {
+    pub fn create_solana_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
         let rpc_client = RpcManager::new();
         let status = rpc_client.validate_rpc_connection();
 
@@ -30,17 +29,11 @@ impl AccountManager {
 
         let account = account_manager
             .get_new_account(new_account.clone())
-            .map_err(|e| format!("{}", e))?;
+            .map_err(|e| format!("failed to get new account: {}", e))?;
 
-        println!("new account {:?}", account);
+        let result =
+            database::db_commands::insert_to_diesel(account).map_err(|e| format!("{}", e))?;
 
-        // stuff z konta
-
-        // balans main konta
-        // tokeny
-        // historię już sformatowana
-        // zapis do bazy danych
-
-        Ok(new_account)
+        Ok(result)
     }
 }

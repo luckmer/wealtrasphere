@@ -15,7 +15,7 @@ export const Default: Story = {
     return (
       <DefaultInput
         value={value()}
-        onChange={(v) => setValue(v)}
+        onChange={(e) => setValue(e.target.value)}
         placeholder="default input"
       />
     );
