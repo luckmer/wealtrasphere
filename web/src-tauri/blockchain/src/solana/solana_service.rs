@@ -13,7 +13,7 @@ impl SolanaManager {
         SolanaManager { client: rpc_client }
     }
 
-    pub fn get_new_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
+    pub fn create_new_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
         let address = new_account.account_address.to_string();
         let pubkey = Pubkey::from_str(&address).unwrap();
 

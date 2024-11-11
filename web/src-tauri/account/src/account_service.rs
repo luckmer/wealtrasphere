@@ -16,23 +16,22 @@ impl AccountManager {
     }
 
     pub fn create_solana_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
-        let rpc_client = RpcManager::new();
-        let status = rpc_client.validate_rpc_connection();
+        if database::find_account_by_address(&new_account.account_address).is_ok() {
+            return Err("Account already exists".to_string());
+        }
 
-        if !status {
-            return Err(String::from(
-                "RPC connection is not valid, please try again later.",
-            ));
+        let rpc_client = RpcManager::new();
+        if !rpc_client.validate_rpc_connection() {
+            return Err("RPC connection is not valid, please try again later.".to_string());
         }
 
         let account_manager = SolanaManager::new(rpc_client.client);
-
         let account = account_manager
-            .get_new_account(new_account.clone())
+            .create_new_account(new_account.clone())
             .map_err(|e| format!("failed to get new account: {}", e))?;
 
-        let result =
-            database::db_commands::insert_to_diesel(account).map_err(|e| format!("{}", e))?;
+        let result = database::db_commands::insert_to_diesel(account)
+            .map_err(|e| format!("failed to save account to database: {}", e))?;
 
         Ok(result)
     }

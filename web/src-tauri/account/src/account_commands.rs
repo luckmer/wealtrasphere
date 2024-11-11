@@ -10,5 +10,5 @@ pub fn create_account(new_account: NewAccount) -> Result<AccountDetails, String>
 
     manager
         .create_new_account(new_account)
-        .map_err(|e| format!("Failed to create new account: {}", e))
+        .map_err(|e| format!("{}", e))
 }

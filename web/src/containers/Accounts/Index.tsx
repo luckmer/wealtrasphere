@@ -5,6 +5,7 @@ import { setOpenModal } from "@store/ui/ui";
 const AccountsRoot = () => {
   return (
     <Accounts
+      accounts={[]}
       onClickAddAccount={() => {
         setOpenModal({
           open: true,

@@ -269,7 +269,6 @@ const AddAccountModal = () => {
             onClick={async () => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
                 setLoading(true);
-                setError(undefined);
 
                 const newAccount: INewAccount = {
                   account_address: accountAddress() ?? "",
@@ -282,6 +281,7 @@ const AddAccountModal = () => {
                 try {
                   const status = await invoke("create_account", { newAccount });
                   setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                  setError(undefined);
                   console.log("connection status", status);
                 } catch (err: unknown) {
                   if (err instanceof Error) {
