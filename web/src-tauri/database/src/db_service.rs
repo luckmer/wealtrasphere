@@ -1,11 +1,8 @@
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
-
-use dotenvy::dotenv;
-
+use std::fs;
 use std::path::PathBuf;
-use std::{env, fs};
 
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 
@@ -15,12 +12,17 @@ pub struct DatabaseManager {
 
 impl DatabaseManager {
     pub fn new() -> Self {
-        let home_dir = dirs::home_dir().expect("Failed to get home directory");
-        let db_path = home_dir
-            .join(".config")
-            .join("orion")
-            .join("database.sqlite");
-        DatabaseManager { db_path }
+        if cfg!(debug_assertions) {
+            // Development mode
+            let db_path = PathBuf::from("database/database.sqlite");
+            DatabaseManager { db_path }
+        } else {
+            // Production mode
+            let app_dir = tauri::api::path::app_data_dir(&tauri::Config::default())
+                .expect("Failed to get app directory");
+            let db_path = app_dir.join("database.sqlite");
+            DatabaseManager { db_path }
+        }
     }
 
     pub fn init(&self) {
@@ -32,12 +34,13 @@ impl DatabaseManager {
     }
 
     pub fn establish_connection(&self) -> SqliteConnection {
-        dotenv().ok();
+        let database_url = self
+            .db_path
+            .to_str()
+            .expect("Failed to convert database path to string");
 
-        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
-        SqliteConnection::establish(&database_url)
-            .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
+        SqliteConnection::establish(database_url)
+            .unwrap_or_else(|_| panic!("Error connecting to database at: {}", database_url))
     }
 
     fn run_migrations(&self) {
@@ -50,9 +53,15 @@ impl DatabaseManager {
             .db_path
             .parent()
             .expect("Failed to get parent directory");
+
         if !db_dir.exists() {
             fs::create_dir_all(db_dir).expect("Failed to create directory");
         }
+
+        if !db_dir.exists() {
+            fs::create_dir_all(db_dir).expect("Failed to create database directory");
+        }
+
         fs::File::create(&self.db_path).expect("Failed to create database file");
     }
 

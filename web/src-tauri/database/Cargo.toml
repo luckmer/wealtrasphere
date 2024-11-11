@@ -4,9 +4,19 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-diesel = {version ="2.2.4" , features = ["sqlite" ]}
-diesel_migrations = { version = "2.2.0", features = ["sqlite" ] }
+tauri = { workspace = true }
+serde = { workspace = true }
+ 
+
+diesel = { version = "2.2.4", features = [
+  "sqlite",
+] }
+diesel_migrations = { version = "2.2.0", features = [
+  "sqlite",
+] }
 
 
 dirs = "5.0.1"
 dotenvy = "0.15"
+
+

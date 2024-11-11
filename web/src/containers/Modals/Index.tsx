@@ -6,7 +6,7 @@ import AddAccountModal from "./AddAccountModal";
 const ModalRoot = () => {
   return (
     <Show when={uiSelector.openModal().open}>
-      <div class="absolute top-0 left-0 z-[99] text-black-100">
+      <div class="absolute top-0 left-0 z-[99]">
         <Switch>
           <Match when={uiSelector.openModal().type === MODAL_TYPE.ADD_ACCOUNT}>
             <AddAccountModal />

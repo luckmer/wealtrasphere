@@ -2,22 +2,23 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod modules;
-use database::init_database;
-use modules::window;
-use tauri::Manager;
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+use account::account_commands;
+use blockchain::blockchain_commands;
+use database::init_database;
+
+use modules::module_service;
+use tauri::Manager;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            account_commands::create_account,
+            blockchain_commands::is_on_curve
+        ])
         .setup(move |app| {
             app.trigger_global("set-backend-ready", None);
-            window::set_window_min_size(app);
+            module_service::set_window_min_size(app);
             init_database();
 
             Ok(())

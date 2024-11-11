@@ -45,7 +45,7 @@
         "../packages/ui/src/components/*"
       ],
       "@theme/*": [
-        "../packages/ui/common/theme/*"
+        "../packages/ui/common/*"
       ],
       "@pages/*": [
         "../packages/ui/src/pages/*"

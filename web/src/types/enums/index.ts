@@ -15,3 +15,11 @@ export enum ADD_ACCOUNT {
   ADDRESS = "ADDRESS",
   UPLOAD = "UPLOAD",
 }
+
+export enum ACCOUNT_TYPE {
+  BLOCKCHAIN = "Blockchain",
+}
+
+export enum BLOCKCHAIN {
+  SOLANA = "SOLANA",
+}
