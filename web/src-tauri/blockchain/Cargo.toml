@@ -12,5 +12,6 @@ solana-client = "2.0.13"
 solana-sdk = "2.0.13"
 anyhow = { workspace = true }
 serde = { workspace = true }
+tauri = { workspace = true }
 
 database = { path = "../database" }

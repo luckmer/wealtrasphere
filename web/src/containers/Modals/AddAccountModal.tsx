@@ -17,7 +17,6 @@ import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 import { invoke } from "@tauri-apps/api";
 import theme from "@theme/theme";
-import { isOnCurve } from "@utils/Solana/Index";
 import { RiArrowsArrowDownSLine } from "solid-icons/ri";
 import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
 import { v7 } from "uuid";
@@ -182,7 +181,7 @@ const AddAccountModal = () => {
                 value={accountAddress() ?? ""}
                 placeholder="Account Address"
                 error={invalidAddress() ? "Invalid address" : undefined}
-                onChange={(event) => {
+                onChange={async (event) => {
                   const value = event.target.value;
 
                   if (!value) {
@@ -191,8 +190,11 @@ const AddAccountModal = () => {
                     return;
                   }
                   try {
+                    await invoke("is_on_curve", {
+                      address: value,
+                      chain: BLOCKCHAIN.SOLANA,
+                    });
                     setInvalidAddress(false);
-                    isOnCurve(value);
                   } catch {
                     setInvalidAddress(true);
                   }
