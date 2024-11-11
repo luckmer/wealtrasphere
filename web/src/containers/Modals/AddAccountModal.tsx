@@ -136,7 +136,7 @@ const AddAccountModal = () => {
                 Account Type
               </Typography>
               <Typography text="caption" color="white">
-                Choose an account type to define your investment profile.
+                Choose a name for your account.
               </Typography>
               <div class="w-full flex flex-row justify-center items-center gap-12 bg-black-400 rounded-4 pr-12">
                 <DefaultInput

@@ -1,3 +1,4 @@
+import Typography from "@components/Typography/Index";
 import { FaSolidXmark } from "solid-icons/fa";
 import { type Component } from "solid-js";
 
@@ -10,9 +11,10 @@ export interface IProps {
 const ModalHeader: Component<IProps> = (props) => {
   return (
     <div class="flex justify-between items-center">
-      <p class="text-left text-[18px] text-white font-medium leading-[20px] not-italic">
+      <Typography text="h3" color="white">
         {props.label}
-      </p>
+      </Typography>
+
       <div
         class="modal-action mt-[0px]"
         onClick={() => {
