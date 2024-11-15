@@ -18,6 +18,7 @@ const theme = {
       100: "#FFFFFF",
     },
     red: {
+      200: "#B0484F",
       100: "#D15861",
     },
     purple: {

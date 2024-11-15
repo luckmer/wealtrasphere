@@ -5,6 +5,7 @@ export enum NAVIGATION {
 }
 
 export enum MODAL_TYPE {
+  EDIT_ACCOUNT = "EDIT_ACCOUNT",
   ADD_ACCOUNT = "ADD_ACCOUNT",
   NONE = "NONE",
 }
@@ -22,4 +23,9 @@ export enum ACCOUNT_TYPE {
 
 export enum BLOCKCHAIN {
   SOLANA = "SOLANA",
+  UNKNOWN = "UNKNOWN",
+}
+
+export enum NATIVE_TOKEN_SYMBOL {
+  SOLANA = "SOL",
 }

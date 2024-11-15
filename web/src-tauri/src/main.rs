@@ -14,7 +14,10 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             account_commands::create_account,
-            blockchain_commands::is_on_curve
+            account_commands::delete_account,
+            account_commands::edit_account,
+            blockchain_commands::is_on_curve,
+            database::load_database
         ])
         .setup(move |app| {
             app.trigger_global("set-backend-ready", None);

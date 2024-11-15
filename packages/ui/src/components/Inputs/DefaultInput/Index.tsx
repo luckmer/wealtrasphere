@@ -5,6 +5,7 @@ export interface IProps {
   error?: string;
   placeholder?: string;
   onChange: (value: IEventInput) => void;
+  onBlur?: () => void;
   value: string;
 }
 
@@ -12,6 +13,9 @@ const DefaultInput: Component<IProps> = (props) => {
   return (
     <div class="w-full flex flex-col gap-4">
       <input
+        onBlur={() => {
+          props.onBlur?.();
+        }}
         value={props.value}
         onInput={(e) => {
           props.onChange(e);
