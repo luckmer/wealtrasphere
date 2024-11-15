@@ -9,7 +9,7 @@ export interface IProps {
 
 const NavigationBar: Component<IProps> = (props) => {
   return (
-    <div class="w-full flex flex-row justify-between items-center pr-12">
+    <div class="w-full flex flex-row justify-between items-center pr-16">
       <Typography text="h2Medium" color="white">
         Accounts
       </Typography>

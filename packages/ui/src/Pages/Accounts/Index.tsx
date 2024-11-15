@@ -36,7 +36,7 @@ export const Accounts: Component<IProps> = (props) => {
           }
         >
           <div class="w-full overflow-y-auto">
-            <div class="w-full grid-cols- min-[810px]:grid-cols-2 min-[1600px]:grid-cols-4 grid gap-6 pr-12 ">
+            <div class="w-full grid-cols- min-[810px]:grid-cols-2 min-[1600px]:grid-cols-4 grid gap-6 pr-16">
               <For each={props.accounts}>
                 {(account) => (
                   <Account
