@@ -12,7 +12,7 @@ import {
   BLOCKCHAIN,
   MODAL_TYPE,
 } from "@interfaces/enums";
-import { INewAccount } from "@interfaces/interfaces";
+import { INewAccount } from "@interfaces/interfaces/accounts";
 import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 import { invoke } from "@tauri-apps/api";
@@ -123,7 +123,7 @@ const AddAccountModal = () => {
                       elem?.blur();
                     }
                     if (name === accountType()) return;
-                    setAccountType(name);
+                    setAccountType(name as unknown as ACCOUNT_TYPE);
                   }}
                   activeElement={accountType() ?? ""}
                 />
@@ -133,7 +133,7 @@ const AddAccountModal = () => {
           <Match when={step() === ADD_ACCOUNT.ACCOUNT_NAME}>
             <div class="flex flex-col gap-12">
               <Typography text="body" color="white">
-                Account Type
+                Account name
               </Typography>
               <Typography text="caption" color="white">
                 Choose a name for your account.

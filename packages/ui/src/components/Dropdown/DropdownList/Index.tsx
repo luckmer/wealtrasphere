@@ -1,18 +1,22 @@
 import { Component, For } from "solid-js";
 import DropdownItem from "../DropdownItem/Index";
-import { ACCOUNT_TYPE } from "@interfaces/enums";
+import clsx from "clsx";
 
 export interface IProps {
-  onClick: (name: ACCOUNT_TYPE) => void;
+  onClick: (name: string) => void;
   activeElement: string;
-  data: ACCOUNT_TYPE[];
+  data: string[];
+  styles?: string;
 }
 
 const DropdownList: Component<IProps> = (props) => {
   return (
     <div
       tabIndex={0}
-      class=" dropdown-content w-full p-[12px] rounded-6 top-[55px] bg-black-400"
+      class={clsx(
+        props.styles,
+        "dropdown-content w-full p-[12px] rounded-6 top-[55px] bg-black-400"
+      )}
     >
       <For each={props.data}>
         {(data) => (

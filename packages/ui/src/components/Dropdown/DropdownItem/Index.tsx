@@ -11,12 +11,12 @@ export interface IProps {
 const DropdownItem: Component<IProps> = (props) => {
   return (
     <div
-      class="p-12 rounded-6 cursor-pointer hover:bg-black-300 flex flex-row justify-between items-center"
+      class="p-12 rounded-6 cursor-pointer hover:bg-black-300 flex flex-row justify-between items-center w-auto"
       onClick={() => {
         props.onClick();
       }}
     >
-      <Typography text="caption" color="white">
+      <Typography text="caption" color="white" class="whitespace-nowrap">
         {props.label}
       </Typography>
       <Show when={props.isActive}>

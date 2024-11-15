@@ -10,7 +10,7 @@ export interface IProps {
 
 const ModalHeader: Component<IProps> = (props) => {
   return (
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center ">
       <Typography text="h3" color="white">
         {props.label}
       </Typography>

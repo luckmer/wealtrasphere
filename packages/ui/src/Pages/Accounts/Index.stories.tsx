@@ -11,6 +11,8 @@ type Story = StoryObj<typeof Accounts>;
 
 export const Default: Story = {
   render: () => {
-    return <Accounts onClickAddAccount={() => {}} />;
+    return (
+      <Accounts onClickAddAccount={() => {}} accounts={[]} isFetching={false} />
+    );
   },
 };

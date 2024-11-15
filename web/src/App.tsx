@@ -1,10 +1,16 @@
-import "@styles/imports.css";
-import { Router, useNavigate } from "@solidjs/router";
-import { routes } from "./routes";
-import Sidebar from "@pages/Sidebar/Index";
 import ModalRoot from "@containers/Modals/Index";
+import Sidebar from "@pages/Sidebar/Index";
+import { Router, useNavigate } from "@solidjs/router";
+import "@styles/imports.css";
+import { onMount } from "solid-js";
+import { routes } from "./routes";
+import { fetchDatabaseAccounts } from "@store/accounts/actions";
 
 function App() {
+  onMount(() => {
+    fetchDatabaseAccounts().catch(() => {});
+  });
+
   return (
     <Router
       root={(data) => {
@@ -18,7 +24,7 @@ function App() {
                 navigate(path);
               }}
             />
-            <div class="p-16 w-full">{data.children}</div>
+            <div class="p-16 pr-[0px] w-full">{data.children}</div>
           </div>
         );
       }}

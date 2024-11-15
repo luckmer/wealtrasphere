@@ -1,11 +1,24 @@
 import { MODAL_TYPE } from "@interfaces/enums";
 import { Accounts } from "@pages/Accounts/Index";
+import { accountsSelector } from "@store/accounts/selectors";
+import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 
 const AccountsRoot = () => {
   return (
     <Accounts
-      accounts={[]}
+      isFetching={uiSelector.isFetchingDatabase()}
+      accounts={accountsSelector.accounts()}
+      onClickOpenAccount={(id) => {
+        console.log(id);
+      }}
+      onClickEditAccount={(id) => {
+        setOpenModal({
+          type: MODAL_TYPE.EDIT_ACCOUNT,
+          open: true,
+          id,
+        });
+      }}
       onClickAddAccount={() => {
         setOpenModal({
           open: true,

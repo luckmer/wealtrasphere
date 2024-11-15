@@ -2,6 +2,7 @@ import { MODAL_TYPE } from "@interfaces/enums";
 import { uiSelector } from "@store/ui/selectors";
 import { Match, Show, Switch } from "solid-js";
 import AddAccountModal from "./AddAccountModal";
+import EditAccountModal from "./EditAccountModal";
 
 const ModalRoot = () => {
   return (
@@ -10,6 +11,9 @@ const ModalRoot = () => {
         <Switch>
           <Match when={uiSelector.openModal().type === MODAL_TYPE.ADD_ACCOUNT}>
             <AddAccountModal />
+          </Match>
+          <Match when={uiSelector.openModal().type === MODAL_TYPE.EDIT_ACCOUNT}>
+            <EditAccountModal />
           </Match>
         </Switch>
       </div>
