@@ -22,6 +22,7 @@ account = { path = "./account" }
 
 tauri = { version = "1", features = [
   "shell-open",
+  # "devtools", // dev mode
 ] }
 
 rusqlite = { version = "0.32.1", features = [

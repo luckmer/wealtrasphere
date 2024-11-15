@@ -1,5 +1,5 @@
 use blockchain::{solana::rpc::RpcManager, SolanaManager};
-use database::{AccountDetails, Blockchain, NewAccount};
+use database::{AccountDetails, Blockchain, DeleteAccountData, NewAccount, UpdateAccountData};
 pub struct AccountManager {}
 
 impl AccountManager {
@@ -13,6 +13,14 @@ impl AccountManager {
         match chain {
             Blockchain::SOLANA => self.create_solana_account(new_account),
         }
+    }
+
+    pub fn edit_account_name(&self, account_data: UpdateAccountData) {
+        database::db_commands::update_account_name(account_data);
+    }
+
+    pub fn delete_account(&self, account_data: DeleteAccountData) {
+        database::db_commands::delete_account(account_data);
     }
 
     pub fn create_solana_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {
