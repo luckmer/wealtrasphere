@@ -19,7 +19,8 @@ tauri-build = { version = "1", features = [
 database = { path = "./database" }
 blockchain = { path = "./blockchain" }
 account = { path = "./account" }
-
+metadata-api = { path = "./metadata-api" }
+price-api = { path = "./price-api" }
 tauri = { version = "1", features = [
   "shell-open",
   # "devtools", // dev mode
@@ -36,6 +37,8 @@ custom-protocol = [
 ]
 
 [workspace.dependencies]
+tokio = "1.41.1"
+reqwest = "0.12.9"
 anyhow = "1.0.93"
 tauri = "1"
 serde = { version = "1", features = [
@@ -48,4 +51,6 @@ members = [
   "account",
   "blockchain",
   "database",
+  "metadata-api",
+  "price-api",
 ]

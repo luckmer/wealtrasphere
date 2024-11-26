@@ -17,6 +17,7 @@ fn main() {
             account_commands::delete_account,
             account_commands::edit_account,
             blockchain_commands::is_on_curve,
+            blockchain_commands::load_account,
             database::load_database
         ])
         .setup(move |app| {

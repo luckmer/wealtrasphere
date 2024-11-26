@@ -10,7 +10,7 @@ pub fn create_account(new_account: NewAccount) -> Result<AccountDetails, String>
 
     manager
         .create_new_account(new_account)
-        .map_err(|e| format!("{}", e))
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]

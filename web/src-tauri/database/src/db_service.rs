@@ -12,17 +12,17 @@ pub struct DatabaseManager {
 
 impl DatabaseManager {
     pub fn new() -> Self {
-        if cfg!(debug_assertions) {
-            // Development mode
-            let db_path = PathBuf::from("database/database.sqlite");
-            DatabaseManager { db_path }
-        } else {
-            // Production mode
-            let app_dir = tauri::api::path::app_data_dir(&tauri::Config::default())
-                .expect("Failed to get app directory");
-            let db_path = app_dir.join("database.sqlite");
-            DatabaseManager { db_path }
-        }
+        // if cfg!(debug_assertions) {
+        //     // Development mode
+        //     let db_path = PathBuf::from("database/database.sqlite");
+        //     DatabaseManager { db_path }
+        // } else {
+        // Production mode
+        let app_dir = tauri::api::path::app_data_dir(&tauri::Config::default())
+            .expect("Failed to get app directory");
+        let db_path = app_dir.join("database.sqlite");
+        DatabaseManager { db_path }
+        // }
     }
 
     pub fn init(&self) {

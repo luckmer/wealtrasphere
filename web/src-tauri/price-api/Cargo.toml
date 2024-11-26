@@ -1,0 +1,8 @@
+[package]
+name = "price-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+database = { path = "../database" }
+reqwest = { workspace = true }

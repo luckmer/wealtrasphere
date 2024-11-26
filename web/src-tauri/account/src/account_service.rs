@@ -1,5 +1,6 @@
 use blockchain::{solana::rpc::RpcManager, SolanaManager};
 use database::{AccountDetails, Blockchain, DeleteAccountData, NewAccount, UpdateAccountData};
+
 pub struct AccountManager {}
 
 impl AccountManager {
@@ -28,12 +29,12 @@ impl AccountManager {
             return Err("Account already exists".to_string());
         }
 
-        let rpc_client = RpcManager::new();
-        if !rpc_client.validate_rpc_connection() {
+        let rpc_manager = RpcManager::new();
+        if !rpc_manager.validate_rpc_connection() {
             return Err("RPC connection is not valid, please try again later.".to_string());
         }
 
-        let account_manager = SolanaManager::new(rpc_client.client);
+        let account_manager = SolanaManager::new(rpc_manager.client);
         let account = account_manager
             .create_new_account(new_account.clone())
             .map_err(|e| format!("failed to get new account: {}", e))?;
