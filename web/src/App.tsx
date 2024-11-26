@@ -1,37 +1,36 @@
-import ModalRoot from "@containers/Modals/Index";
-import Sidebar from "@pages/Sidebar/Index";
-import { Router, useNavigate } from "@solidjs/router";
-import "@styles/imports.css";
-import { routes } from "./routes";
-import { onMount } from "solid-js";
-import { loadDatabase } from "@store/database";
+import ModalRoot from '@containers/Modals/Index'
+import Sidebar from '@pages/Sidebar/Index'
+import { Router, useNavigate } from '@solidjs/router'
+import '@styles/imports.css'
+import { routes } from './routes'
+import { onMount } from 'solid-js'
+import { loadDatabase } from '@store/database'
 
 function App() {
   onMount(() => {
-    loadDatabase().catch(() => {});
-  });
+    loadDatabase().catch(() => {})
+  })
 
   return (
     <Router
       root={(data) => {
-        const navigate = useNavigate();
+        const navigate = useNavigate()
         return (
           <div class="flex h-[100vh] w-[100vw]">
             <ModalRoot />
             <Sidebar
               navigation={data.location.pathname}
               onClick={(path) => {
-                navigate(path);
+                navigate(path)
               }}
             />
             <div class="p-16 pr-[0px] w-full">{data.children}</div>
           </div>
-        );
-      }}
-    >
+        )
+      }}>
       {routes}
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

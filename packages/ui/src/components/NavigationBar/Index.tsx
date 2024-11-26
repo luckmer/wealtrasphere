@@ -1,10 +1,10 @@
-import IconButton from "@components/buttons/IconButton/Index";
-import Typography from "@components/Typography/Index";
-import { RiSystemAddCircleLine } from "solid-icons/ri";
-import { Component } from "solid-js";
+import IconButton from '@components/buttons/IconButton/Index'
+import Typography from '@components/Typography/Index'
+import { RiSystemAddCircleLine } from 'solid-icons/ri'
+import { Component } from 'solid-js'
 
 export interface IProps {
-  onClickAddAccount: () => void;
+  onClickAddAccount: () => void
 }
 
 const NavigationBar: Component<IProps> = (props) => {
@@ -18,13 +18,12 @@ const NavigationBar: Component<IProps> = (props) => {
           onClick={props.onClickAddAccount}
           title="Add account"
           text="smallBold"
-          color="black"
-        >
+          color="black">
           <RiSystemAddCircleLine color="black" />
         </IconButton>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NavigationBar;
+export default NavigationBar

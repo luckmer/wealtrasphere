@@ -1,4 +1,4 @@
-import { appUiState } from "./ui";
-import { createStoreSelectors } from "../utils";
+import { appUiState } from './ui'
+import { createStoreSelectors } from '../utils'
 
-export const uiSelector = createStoreSelectors(appUiState);
+export const uiSelector = createStoreSelectors(appUiState)

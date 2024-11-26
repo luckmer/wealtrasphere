@@ -1,11 +1,11 @@
-import IconButton from "@components/buttons/IconButton/Index";
-import Typography from "@components/Typography/Index";
-import { BiRegularGhost } from "solid-icons/bi";
-import { CgAdd } from "solid-icons/cg";
-import { Component } from "solid-js";
+import IconButton from '@components/buttons/IconButton/Index'
+import Typography from '@components/Typography/Index'
+import { BiRegularGhost } from 'solid-icons/bi'
+import { CgAdd } from 'solid-icons/cg'
+import { Component } from 'solid-js'
 
 export interface IProps {
-  onClickAddAccount: () => void;
+  onClickAddAccount: () => void
 }
 
 const MissingAccounts: Component<IProps> = (props) => {
@@ -25,13 +25,12 @@ const MissingAccounts: Component<IProps> = (props) => {
           onClick={props.onClickAddAccount}
           title="Add account"
           text="caption"
-          color="black"
-        >
+          color="black">
           <CgAdd color="black" />
         </IconButton>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MissingAccounts;
+export default MissingAccounts

@@ -1,8 +1,8 @@
-import { MODAL_TYPE } from "@interfaces/enums";
-import { uiSelector } from "@store/ui/selectors";
-import { Match, Show, Switch } from "solid-js";
-import AddAccountModal from "./AddAccountModal";
-import EditAccountModal from "./EditAccountModal";
+import { MODAL_TYPE } from '@interfaces/enums'
+import { uiSelector } from '@store/ui/selectors'
+import { Match, Show, Switch } from 'solid-js'
+import AddAccountModal from './AddAccountModal'
+import EditAccountModal from './EditAccountModal'
 
 const ModalRoot = () => {
   return (
@@ -18,7 +18,7 @@ const ModalRoot = () => {
         </Switch>
       </div>
     </Show>
-  );
-};
+  )
+}
 
-export default ModalRoot;
+export default ModalRoot

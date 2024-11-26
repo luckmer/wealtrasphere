@@ -1,10 +1,10 @@
-import Typography from "@components/Typography/Index";
-import { Component } from "solid-js";
+import Typography from '@components/Typography/Index'
+import { Component } from 'solid-js'
 
 export interface IProps {
-  isFirst?: boolean;
-  label: string;
-  description: string;
+  isFirst?: boolean
+  label: string
+  description: string
 }
 
 const TokenInfoCard: Component<IProps> = (props) => {
@@ -12,10 +12,9 @@ const TokenInfoCard: Component<IProps> = (props) => {
     <div
       class="bg-black-300 p-[14px] cursor-default flex flex-row w-full justify-between"
       classList={{
-        "rounded-b-16": typeof props.isFirst !== "undefined" && !props.isFirst,
-        "rounded-t-16": typeof props.isFirst !== "undefined" && props.isFirst,
-      }}
-    >
+        'rounded-b-16': typeof props.isFirst !== 'undefined' && !props.isFirst,
+        'rounded-t-16': typeof props.isFirst !== 'undefined' && props.isFirst,
+      }}>
       <div>
         <Typography color="grey" class="h-[17px]" text="smallBold">
           {props.label}
@@ -27,7 +26,7 @@ const TokenInfoCard: Component<IProps> = (props) => {
         </Typography>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TokenInfoCard;
+export default TokenInfoCard

@@ -1,4 +1,4 @@
-import { appDashboardState } from "./dashboard";
-import { createStoreSelectors } from "../utils";
+import { appDashboardState } from './dashboard'
+import { createStoreSelectors } from '../utils'
 
-export const dashboardSelector = createStoreSelectors(appDashboardState);
+export const dashboardSelector = createStoreSelectors(appDashboardState)

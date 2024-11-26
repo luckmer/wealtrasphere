@@ -1,14 +1,14 @@
-import { type Meta, type StoryObj } from "storybook-solidjs";
-import Account from "./Index";
-import { BLOCKCHAIN } from "@interfaces/enums";
+import { type Meta, type StoryObj } from 'storybook-solidjs'
+import Account from './Index'
+import { BLOCKCHAIN } from '@interfaces/enums'
 
 const meta: Meta<typeof Account> = {
   component: Account,
-  title: "Components/Account",
-};
+  title: 'Components/Account',
+}
 
-export default meta;
-type Story = StoryObj<typeof Account>;
+export default meta
+type Story = StoryObj<typeof Account>
 
 export const Default: Story = {
   render: () => {
@@ -22,6 +22,6 @@ export const Default: Story = {
         accountAddress="0x1234567890"
         chain={BLOCKCHAIN.SOLANA}
       />
-    );
+    )
   },
-};
+}

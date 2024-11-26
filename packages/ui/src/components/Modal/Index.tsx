@@ -1,24 +1,24 @@
-import ModalHeader from "@components/ModalHeader/Index";
-import { createEffect, ParentComponent } from "solid-js";
+import ModalHeader from '@components/ModalHeader/Index'
+import { createEffect, ParentComponent } from 'solid-js'
 
 export interface IProps {
-  onClickCloseModal: () => void;
-  isSending?: boolean;
-  isActive: boolean;
-  disabled: boolean;
-  label: string;
-  id: string;
+  onClickCloseModal: () => void
+  isSending?: boolean
+  isActive: boolean
+  disabled: boolean
+  label: string
+  id: string
 }
 
 export const Modal: ParentComponent<IProps> = (props) => {
   createEffect(() => {
     if (props.isActive) {
-      const el = document.getElementById(props.id);
+      const el = document.getElementById(props.id)
       if (el instanceof HTMLDialogElement) {
-        el.showModal();
+        el.showModal()
       }
     }
-  });
+  })
 
   return (
     <dialog id={props.id} class="modal select-none">
@@ -28,7 +28,7 @@ export const Modal: ParentComponent<IProps> = (props) => {
             disabled={props.disabled}
             label={props.label}
             onClick={() => {
-              props.onClickCloseModal();
+              props.onClickCloseModal()
             }}
           />
           {props.children}
@@ -37,16 +37,12 @@ export const Modal: ParentComponent<IProps> = (props) => {
       <div
         class="modal-backdrop"
         onClick={() => {
-          props.onClickCloseModal();
-        }}
-      >
-        <button
-          class="cursor-default outline-none"
-          disabled={props.isSending}
-        />
+          props.onClickCloseModal()
+        }}>
+        <button class="cursor-default outline-none" disabled={props.isSending} />
       </div>
     </dialog>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

@@ -1,23 +1,23 @@
-import { type Meta, type StoryObj } from "storybook-solidjs";
-import DefaultInput from "./Index";
-import { createSignal } from "solid-js";
+import { type Meta, type StoryObj } from 'storybook-solidjs'
+import DefaultInput from './Index'
+import { createSignal } from 'solid-js'
 
 const meta: Meta<typeof DefaultInput> = {
   component: DefaultInput,
-  title: "Components/Inputs/DefaultInput",
-};
-export default meta;
-type Story = StoryObj<typeof DefaultInput>;
+  title: 'Components/Inputs/DefaultInput',
+}
+export default meta
+type Story = StoryObj<typeof DefaultInput>
 
 export const Default: Story = {
   render: () => {
-    const [value, setValue] = createSignal("");
+    const [value, setValue] = createSignal('')
     return (
       <DefaultInput
         value={value()}
         onChange={(e) => setValue(e.target.value)}
         placeholder="default input"
       />
-    );
+    )
   },
-};
+}

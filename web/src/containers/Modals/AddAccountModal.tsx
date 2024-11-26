@@ -1,46 +1,35 @@
-import DefaultButton from "@components/buttons/DefaultButton/Index";
-import IconButton from "@components/buttons/IconButton/Index";
-import Dropdown from "@components/Dropdown/Dropdown/Index";
-import DropdownList from "@components/Dropdown/DropdownList/Index";
-import DefaultInput from "@components/Inputs/DefaultInput/Index";
-import { Modal } from "@components/Modal/Index";
-import Progressbar from "@components/Progressbar/Index";
-import Typography from "@components/Typography/Index";
-import {
-  ACCOUNT_TYPE,
-  ADD_ACCOUNT,
-  BLOCKCHAIN,
-  MODAL_TYPE,
-} from "@interfaces/enums";
-import { IAccount, INewAccount } from "@interfaces/interfaces/accounts";
-import { ILoadDatabaseAccount } from "@interfaces/interfaces/database";
-import { setAccount } from "@store/accounts/accounts";
-import { loadAccount } from "@store/accounts/actions";
-import { uiSelector } from "@store/ui/selectors";
-import { setOpenModal } from "@store/ui/ui";
-import { invoke } from "@tauri-apps/api";
-import theme from "@theme/theme";
-import { RiArrowsArrowDownSLine } from "solid-icons/ri";
-import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
-import { v7 } from "uuid";
+import DefaultButton from '@components/buttons/DefaultButton/Index'
+import IconButton from '@components/buttons/IconButton/Index'
+import Dropdown from '@components/Dropdown/Dropdown/Index'
+import DropdownList from '@components/Dropdown/DropdownList/Index'
+import DefaultInput from '@components/Inputs/DefaultInput/Index'
+import { Modal } from '@components/Modal/Index'
+import Progressbar from '@components/Progressbar/Index'
+import Typography from '@components/Typography/Index'
+import { ACCOUNT_TYPE, ADD_ACCOUNT, BLOCKCHAIN, MODAL_TYPE } from '@interfaces/enums'
+import { IAccount, INewAccount } from '@interfaces/interfaces/accounts'
+import { ILoadDatabaseAccount } from '@interfaces/interfaces/database'
+import { setAccount } from '@store/accounts/accounts'
+import { loadAccount } from '@store/accounts/actions'
+import { uiSelector } from '@store/ui/selectors'
+import { setOpenModal } from '@store/ui/ui'
+import { invoke } from '@tauri-apps/api'
+import theme from '@theme/theme'
+import { RiArrowsArrowDownSLine } from 'solid-icons/ri'
+import { createMemo, createSignal, Match, Show, Switch } from 'solid-js'
+import { v7 } from 'uuid'
 
 const AddAccountModal = () => {
-  const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT);
-  const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false);
-  const [error, setError] = createSignal<string | undefined>(undefined);
-  const [loading, setLoading] = createSignal<boolean>(false);
-  const [stepIndex, setStepIndex] = createSignal<number>(0);
-  const [revert, setRevert] = createSignal<boolean>(false);
+  const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT)
+  const [invalidAddress, setInvalidAddress] = createSignal<boolean>(false)
+  const [error, setError] = createSignal<string | undefined>(undefined)
+  const [loading, setLoading] = createSignal<boolean>(false)
+  const [stepIndex, setStepIndex] = createSignal<number>(0)
+  const [revert, setRevert] = createSignal<boolean>(false)
 
-  const [accountType, setAccountType] = createSignal<ACCOUNT_TYPE | undefined>(
-    undefined
-  );
-  const [accountName, setAccountName] = createSignal<string | undefined>(
-    undefined
-  );
-  const [accountAddress, setAccountAddress] = createSignal<string | undefined>(
-    undefined
-  );
+  const [accountType, setAccountType] = createSignal<ACCOUNT_TYPE | undefined>(undefined)
+  const [accountName, setAccountName] = createSignal<string | undefined>(undefined)
+  const [accountAddress, setAccountAddress] = createSignal<string | undefined>(undefined)
 
   const progressbarStep = createMemo(() => {
     return {
@@ -48,23 +37,19 @@ const AddAccountModal = () => {
       [ADD_ACCOUNT.ACCOUNT_NAME]: 2,
       [ADD_ACCOUNT.ADDRESS]: 3,
       [ADD_ACCOUNT.UPLOAD]: 4,
-    };
-  });
+    }
+  })
 
   const enableNextStep = createMemo(() => {
     if (progressbarStep()[step()] === 1 && accountType() === undefined) {
-      return false;
+      return false
     }
     if (progressbarStep()[step()] === 2 && accountName() === undefined) {
-      return false;
+      return false
     }
 
-    return !(
-      progressbarStep()[step()] === 3 &&
-      (accountAddress() === undefined ||
-        (accountAddress() !== undefined && invalidAddress()))
-    );
-  });
+    return !(progressbarStep()[step()] === 3 && (accountAddress() === undefined || (accountAddress() !== undefined && invalidAddress())))
+  })
 
   return (
     <Modal
@@ -74,10 +59,9 @@ const AddAccountModal = () => {
       disabled={false}
       id="id"
       onClickCloseModal={() => {
-        if (loading()) return;
-        setOpenModal({ open: false, type: MODAL_TYPE.NONE });
-      }}
-    >
+        if (loading()) return
+        setOpenModal({ open: false, type: MODAL_TYPE.NONE })
+      }}>
       <div class="flex flex-col gap-24">
         <Progressbar step={progressbarStep()[step()]} />
         <Switch>
@@ -91,40 +75,38 @@ const AddAccountModal = () => {
               </Typography>
               <Dropdown
                 onFocusOut={() => {
-                  setRevert(false);
-                }}
-              >
+                  setRevert(false)
+                }}>
                 <IconButton
                   reverse
                   styles="bg-black-400 outline-none min-h-[50px]"
-                  title={accountType() ?? "Select account type"}
+                  title={accountType() ?? 'Select account type'}
                   color="white"
                   onClick={() => {
-                    if (revert()) return;
-                    setRevert(true);
-                  }}
-                >
+                    if (revert()) return
+                    setRevert(true)
+                  }}>
                   <RiArrowsArrowDownSLine
                     class="transition-rotate duration-[250ms]"
                     color={theme.colors.white[100]}
                     size={24}
                     classList={{
-                      "rotate-0": !revert(),
-                      "rotate-180": revert(),
+                      'rotate-0': !revert(),
+                      'rotate-180': revert(),
                     }}
                   />
                 </IconButton>
                 <DropdownList
                   data={Object.values(ACCOUNT_TYPE)}
                   onClick={(name) => {
-                    const elem: Element | null = document.activeElement;
+                    const elem: Element | null = document.activeElement
                     if (elem instanceof HTMLElement) {
-                      elem?.blur();
+                      elem?.blur()
                     }
-                    if (name === accountType()) return;
-                    setAccountType(name as unknown as ACCOUNT_TYPE);
+                    if (name === accountType()) return
+                    setAccountType(name as unknown as ACCOUNT_TYPE)
                   }}
-                  activeElement={accountType() ?? ""}
+                  activeElement={accountType() ?? ''}
                 />
               </Dropdown>
             </div>
@@ -139,20 +121,20 @@ const AddAccountModal = () => {
               </Typography>
               <div class="w-full flex flex-row justify-center items-center gap-12 bg-black-400 rounded-4 pr-12">
                 <DefaultInput
-                  value={accountName() ?? ""}
+                  value={accountName() ?? ''}
                   placeholder="Account name"
                   onChange={(e) => {
-                    const value = e.target.value;
+                    const value = e.target.value
                     if (value.length > 50) {
-                      e.target.value = accountName() ?? "";
-                      return;
+                      e.target.value = accountName() ?? ''
+                      return
                     }
 
                     if (!value.trim().length) {
-                      setAccountName(undefined);
-                      return;
+                      setAccountName(undefined)
+                      return
                     }
-                    setAccountName(value.trim());
+                    setAccountName(value.trim())
                   }}
                 />
                 <Typography text="caption" color="white">
@@ -177,27 +159,27 @@ const AddAccountModal = () => {
                 </Show>
               </div>
               <DefaultInput
-                value={accountAddress() ?? ""}
+                value={accountAddress() ?? ''}
                 placeholder="Account Address"
-                error={invalidAddress() ? "Invalid address" : undefined}
+                error={invalidAddress() ? 'Invalid address' : undefined}
                 onChange={async (event) => {
-                  const value = event.target.value;
+                  const value = event.target.value
 
                   if (!value) {
-                    setAccountAddress(undefined);
-                    setInvalidAddress(false);
-                    return;
+                    setAccountAddress(undefined)
+                    setInvalidAddress(false)
+                    return
                   }
                   try {
-                    await invoke("is_on_curve", {
+                    await invoke('is_on_curve', {
                       address: value,
                       chain: BLOCKCHAIN.SOLANA,
-                    });
-                    setInvalidAddress(false);
+                    })
+                    setInvalidAddress(false)
                   } catch {
-                    setInvalidAddress(true);
+                    setInvalidAddress(true)
                   }
-                  setAccountAddress(value);
+                  setAccountAddress(value)
                 }}
               />
             </div>
@@ -205,25 +187,23 @@ const AddAccountModal = () => {
           <Match when={step() === ADD_ACCOUNT.UPLOAD}>
             <div class="flex flex-col gap-12">
               <Show
-                when={typeof error() !== "undefined"}
+                when={typeof error() !== 'undefined'}
                 fallback={
                   <Typography text="body" color="white">
                     Almost there!
                   </Typography>
-                }
-              >
+                }>
                 <Typography text="body" color="white">
                   Oops!
                 </Typography>
               </Show>
               <Show
-                when={typeof error() !== "undefined"}
+                when={typeof error() !== 'undefined'}
                 fallback={
                   <Typography text="caption" color="white">
                     Click Confirm to finish process and create your account.
                   </Typography>
-                }
-              >
+                }>
                 <Typography text="caption" color="red">
                   {error()}
                 </Typography>
@@ -233,57 +213,53 @@ const AddAccountModal = () => {
         </Switch>
         <div class="flex flex-row w-full justify-end gap-12">
           <DefaultButton
-            title={step() === ADD_ACCOUNT.INIT ? "Cancel" : "Back"}
+            title={step() === ADD_ACCOUNT.INIT ? 'Cancel' : 'Back'}
             color="white"
             disabled={loading()}
             text="caption"
             onClick={() => {
               if (step() === ADD_ACCOUNT.INIT) {
-                setOpenModal({ open: false, type: MODAL_TYPE.NONE });
-                return;
+                setOpenModal({ open: false, type: MODAL_TYPE.NONE })
+                return
               }
 
-              if (typeof error() !== "undefined") {
-                setError(undefined);
+              if (typeof error() !== 'undefined') {
+                setError(undefined)
               }
 
-              const steps = Object.keys(
-                progressbarStep()
-              ) as unknown as ADD_ACCOUNT[];
-              const currentStep: ADD_ACCOUNT | undefined =
-                steps[stepIndex() - 1];
+              const steps = Object.keys(progressbarStep()) as unknown as ADD_ACCOUNT[]
+              const currentStep: ADD_ACCOUNT | undefined = steps[stepIndex() - 1]
 
-              if (!currentStep) return;
+              if (!currentStep) return
 
-              setStepIndex(stepIndex() - 1);
-              setStep(currentStep);
+              setStepIndex(stepIndex() - 1)
+              setStep(currentStep)
             }}
           />
           <DefaultButton
             loading={loading()}
-            title={step() !== ADD_ACCOUNT.UPLOAD ? "Continue" : "Confirm"}
+            title={step() !== ADD_ACCOUNT.UPLOAD ? 'Continue' : 'Confirm'}
             active={enableNextStep() && !loading()}
             disabled={!enableNextStep() || loading()}
             text="caption"
             onClick={async () => {
               if (step() === ADD_ACCOUNT.UPLOAD) {
-                setLoading(true);
+                setLoading(true)
 
                 const newAccount: INewAccount = {
-                  account_address: accountAddress() ?? "",
+                  account_address: accountAddress() ?? '',
                   chain: BLOCKCHAIN.SOLANA,
                   account_type: accountType() ?? ACCOUNT_TYPE.BLOCKCHAIN,
-                  account_name: accountName() ?? "Default account",
+                  account_name: accountName() ?? 'Default account',
                   id: v7(),
-                };
+                }
 
                 try {
-                  const account = await invoke<ILoadDatabaseAccount>(
-                    "create_account",
-                    { newAccount }
-                  );
-                  setOpenModal({ open: false, type: MODAL_TYPE.NONE });
-                  setError(undefined);
+                  const account = await invoke<ILoadDatabaseAccount>('create_account', {
+                    newAccount,
+                  })
+                  setOpenModal({ open: false, type: MODAL_TYPE.NONE })
+                  setError(undefined)
 
                   const data: IAccount = {
                     id: account.id,
@@ -291,43 +267,37 @@ const AddAccountModal = () => {
                     accountName: account.account_name,
                     accountAddress: account.account_address,
                     chain: BLOCKCHAIN.SOLANA,
-                  };
+                  }
 
-                  setAccount(data);
+                  setAccount(data)
                 } catch (err: unknown) {
                   if (err instanceof Error) {
-                    setError(err.message);
+                    setError(err.message)
                   }
-                  if (typeof err === "string") {
-                    setError(err);
+                  if (typeof err === 'string') {
+                    setError(err)
                   }
                 } finally {
-                  setLoading(false);
+                  setLoading(false)
                 }
 
-                await loadAccount(
-                  newAccount.account_address,
-                  BLOCKCHAIN.SOLANA
-                );
+                await loadAccount(newAccount.account_address, BLOCKCHAIN.SOLANA)
 
-                return;
+                return
               }
 
-              const steps = Object.keys(
-                progressbarStep()
-              ) as unknown as ADD_ACCOUNT[];
-              const currentStep: ADD_ACCOUNT | undefined =
-                steps[stepIndex() + 1];
-              if (!currentStep) return;
+              const steps = Object.keys(progressbarStep()) as unknown as ADD_ACCOUNT[]
+              const currentStep: ADD_ACCOUNT | undefined = steps[stepIndex() + 1]
+              if (!currentStep) return
 
-              setStepIndex(stepIndex() + 1);
-              setStep(currentStep);
+              setStepIndex(stepIndex() + 1)
+              setStep(currentStep)
             }}
           />
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddAccountModal;
+export default AddAccountModal

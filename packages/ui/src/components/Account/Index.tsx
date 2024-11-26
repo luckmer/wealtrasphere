@@ -1,17 +1,17 @@
-import Typography from "@components/Typography/Index";
-import { IAccount } from "@interfaces/interfaces/accounts";
-import { Component } from "solid-js";
+import Typography from '@components/Typography/Index'
+import { IAccount } from '@interfaces/interfaces/accounts'
+import { Component } from 'solid-js'
 import {
   capitalizeFirstLetter,
   formatBalance,
   getNativeTokenSymbol,
   shortAddress,
-} from "../../utils/index";
-import { BsThreeDotsVertical } from "solid-icons/bs";
+} from '../../utils/index'
+import { BsThreeDotsVertical } from 'solid-icons/bs'
 
 export interface IProps extends IAccount {
-  onClick: () => void;
-  onClickEditAccount: () => void;
+  onClick: () => void
+  onClickEditAccount: () => void
 }
 
 const Account: Component<IProps> = (props) => {
@@ -32,7 +32,7 @@ const Account: Component<IProps> = (props) => {
             </Typography>
             <BsThreeDotsVertical
               onClick={() => {
-                props.onClickEditAccount();
+                props.onClickEditAccount()
               }}
               size={18}
               class="hover:fill-purple-200 fill-black-100"
@@ -51,9 +51,7 @@ const Account: Component<IProps> = (props) => {
                 Balance
               </Typography>
               <Typography ellipsis color="white" text="body">
-                {`${formatBalance(props.balance)} ${getNativeTokenSymbol(
-                  props.chain
-                )}`}
+                {`${formatBalance(props.balance)} ${getNativeTokenSymbol(props.chain)}`}
               </Typography>
             </div>
             <div class="pt-12 flex flex-col gap-6 text-right">
@@ -68,7 +66,7 @@ const Account: Component<IProps> = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Account;
+export default Account

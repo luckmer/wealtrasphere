@@ -1,11 +1,11 @@
-import Typography from "@components/Typography/Index";
-import { FaSolidXmark } from "solid-icons/fa";
-import { type Component } from "solid-js";
+import Typography from '@components/Typography/Index'
+import { FaSolidXmark } from 'solid-icons/fa'
+import { type Component } from 'solid-js'
 
 export interface IProps {
-  label: string;
-  onClick?: () => void;
-  disabled?: boolean;
+  label: string
+  onClick?: () => void
+  disabled?: boolean
 }
 
 const ModalHeader: Component<IProps> = (props) => {
@@ -18,9 +18,8 @@ const ModalHeader: Component<IProps> = (props) => {
       <div
         class="modal-action mt-[0px]"
         onClick={() => {
-          props.onClick?.();
-        }}
-      >
+          props.onClick?.()
+        }}>
         <div class="flex items-center just">
           <button class="cursor-pointer" disabled={props.disabled}>
             <p class="text-white text-left">
@@ -30,7 +29,7 @@ const ModalHeader: Component<IProps> = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ModalHeader;
+export default ModalHeader

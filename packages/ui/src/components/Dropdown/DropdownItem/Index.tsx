@@ -1,11 +1,11 @@
-import Typography from "@components/Typography/Index";
-import { IoCheckmarkOutline } from "solid-icons/io";
-import { Component, Show } from "solid-js";
+import Typography from '@components/Typography/Index'
+import { IoCheckmarkOutline } from 'solid-icons/io'
+import { Component, Show } from 'solid-js'
 
 export interface IProps {
-  isActive?: boolean;
-  onClick: () => void;
-  label: string;
+  isActive?: boolean
+  onClick: () => void
+  label: string
 }
 
 const DropdownItem: Component<IProps> = (props) => {
@@ -13,9 +13,8 @@ const DropdownItem: Component<IProps> = (props) => {
     <div
       class="p-12 rounded-6 cursor-pointer hover:bg-black-300 flex flex-row justify-between items-center w-auto"
       onClick={() => {
-        props.onClick();
-      }}
-    >
+        props.onClick()
+      }}>
       <Typography text="caption" color="white" class="whitespace-nowrap">
         {props.label}
       </Typography>
@@ -23,7 +22,7 @@ const DropdownItem: Component<IProps> = (props) => {
         <IoCheckmarkOutline color="white" size={20} />
       </Show>
     </div>
-  );
-};
+  )
+}
 
-export default DropdownItem;
+export default DropdownItem

@@ -1,4 +1,4 @@
-import { appAccountsState } from "./accounts";
-import { createStoreSelectors } from "../utils";
+import { appAccountsState } from './accounts'
+import { createStoreSelectors } from '../utils'
 
-export const accountsSelector = createStoreSelectors(appAccountsState);
+export const accountsSelector = createStoreSelectors(appAccountsState)

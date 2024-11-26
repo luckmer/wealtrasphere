@@ -1,13 +1,13 @@
-import { type Meta, type StoryObj } from "storybook-solidjs";
-import Typography from "./Index";
+import { type Meta, type StoryObj } from 'storybook-solidjs'
+import Typography from './Index'
 
 const meta: Meta<typeof Typography> = {
   component: Typography,
-  title: "Components/Typography",
-};
+  title: 'Components/Typography',
+}
 
-export default meta;
-type Story = StoryObj<typeof Typography>;
+export default meta
+type Story = StoryObj<typeof Typography>
 
 export const Default: Story = {
   render: () => {
@@ -15,6 +15,6 @@ export const Default: Story = {
       <Typography color="grey" text="body">
         Typography
       </Typography>
-    );
+    )
   },
-};
+}

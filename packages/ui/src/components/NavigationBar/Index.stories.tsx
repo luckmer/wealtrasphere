@@ -1,16 +1,16 @@
-import { type Meta, type StoryObj } from "storybook-solidjs";
-import NavigationBar from "./Index";
+import { type Meta, type StoryObj } from 'storybook-solidjs'
+import NavigationBar from './Index'
 
 const meta: Meta<typeof NavigationBar> = {
   component: NavigationBar,
-  title: "Components/NavigationBar",
-};
+  title: 'Components/NavigationBar',
+}
 
-export default meta;
-type Story = StoryObj<typeof NavigationBar>;
+export default meta
+type Story = StoryObj<typeof NavigationBar>
 
 export const Default: Story = {
   render: () => {
-    return <NavigationBar onClickAddAccount={() => {}} />;
+    return <NavigationBar onClickAddAccount={() => {}} />
   },
-};
+}
