@@ -14,14 +14,13 @@ pub fn create_account(new_account: NewAccount) -> Result<AccountDetails, String>
 }
 
 #[tauri::command]
-
-pub fn edit_account(account_data: UpdateAccountData) {
+pub fn edit_account(account_data: UpdateAccountData) -> Result<UpdateAccountData, String> {
     let manager: AccountManager = AccountManager::new();
     manager.edit_account_name(account_data)
 }
 
 #[tauri::command]
-pub fn delete_account(account_data: DeleteAccountData) {
+pub fn delete_account(account_data: DeleteAccountData) -> Result<Vec<AccountDetails>, String> {
     let manager: AccountManager = AccountManager::new();
     manager.delete_account(account_data)
 }

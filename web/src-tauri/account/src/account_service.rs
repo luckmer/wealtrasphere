@@ -16,12 +16,24 @@ impl AccountManager {
         }
     }
 
-    pub fn edit_account_name(&self, account_data: UpdateAccountData) {
-        database::db_commands::update_account_name(account_data);
+    pub fn edit_account_name(
+        &self,
+        account_data: UpdateAccountData,
+    ) -> Result<UpdateAccountData, String> {
+        match database::db_commands::update_account_name(account_data.clone()) {
+            Ok(_) => Ok(account_data),
+            Err(_) => Err("Failed to update account".to_string()),
+        }
     }
 
-    pub fn delete_account(&self, account_data: DeleteAccountData) {
-        database::db_commands::delete_account(account_data);
+    pub fn delete_account(
+        &self,
+        account_data: DeleteAccountData,
+    ) -> Result<Vec<AccountDetails>, String> {
+        match database::db_commands::delete_account(account_data) {
+            Ok(data) => Ok(data),
+            Err(_) => Err("Failed to delete account".to_string()),
+        }
     }
 
     pub fn create_solana_account(&self, new_account: NewAccount) -> Result<AccountDetails, String> {

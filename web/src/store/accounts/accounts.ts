@@ -37,4 +37,17 @@ export const setAccount = (account: IAccount) => {
   );
 };
 
+export const updateAccount = (id: string, accountName: string) => {
+  setState(
+    produce((draft) => {
+      const accountIndex = draft.accounts.findIndex(
+        (account) => account.id === id
+      );
+      if (accountIndex !== -1) {
+        draft.accounts[accountIndex].accountName = accountName;
+      }
+    })
+  );
+};
+
 export const appAccountsState = createMemo(() => state);

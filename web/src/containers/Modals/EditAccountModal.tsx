@@ -5,8 +5,13 @@ import DropdownList from "@components/Dropdown/DropdownList/Index";
 import DefaultInput from "@components/Inputs/DefaultInput/Index";
 import Modal from "@components/Modal/Index";
 import Typography from "@components/Typography/Index";
-import { ACCOUNT_TYPE, MODAL_TYPE } from "@interfaces/enums";
-import { defaultAccount } from "@store/accounts/accounts";
+import { ACCOUNT_TYPE, BLOCKCHAIN, MODAL_TYPE } from "@interfaces/enums";
+import { ILoadDatabaseAccount } from "@interfaces/interfaces/database";
+import {
+  defaultAccount,
+  setAccounts,
+  updateAccount,
+} from "@store/accounts/accounts";
 import { accountsSelector } from "@store/accounts/selectors";
 import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
@@ -34,6 +39,57 @@ const EditAccountModal = () => {
   onMount(() => {
     setAccountName(account().accountName);
   });
+
+  const onClickDeleteAccount = async () => {
+    try {
+      const data = { accountData: { id: account().id } };
+      const response = await invoke<ILoadDatabaseAccount[]>(
+        "delete_account",
+        data
+      );
+
+      const accounts = response.map((account) => {
+        return {
+          id: account.id,
+          balance: account.balance,
+          accountName: account.account_name,
+          accountAddress: account.account_address,
+          chain: account.chain as BLOCKCHAIN,
+        };
+      });
+
+      setAccounts(accounts);
+    } catch (err) {
+      console.log("failed to delete account ", err);
+    }
+    setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+  };
+
+  const onClickEditAccount = async () => {
+    try {
+      if (accountName() === account().accountName) {
+        setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+        return;
+      }
+
+      const data = {
+        accountData: {
+          id: account().id,
+          account_name: !accountName().length ? "Wallet" : accountName(),
+        },
+      };
+
+      const response = await invoke<{ id: string; account_name: string }>(
+        "edit_account",
+        data
+      );
+
+      updateAccount(response.id, response.account_name);
+    } catch {
+      console.log("failed to update account ");
+    }
+    setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+  };
 
   return (
     <Modal
@@ -128,10 +184,7 @@ const EditAccountModal = () => {
             text="caption"
             color="white"
             onClick={() => {
-              invoke("delete_account", {
-                accountData: { id: account().id },
-              }).catch(() => {});
-              setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+              onClickDeleteAccount().catch(() => {});
             }}
           />
           <div class="flex flex-row gap-12">
@@ -141,20 +194,7 @@ const EditAccountModal = () => {
               text="caption"
               color="black"
               onClick={() => {
-                if (accountName() === account().accountName) {
-                  setOpenModal({ open: false, type: MODAL_TYPE.NONE });
-                  return;
-                }
-
-                invoke("edit_account", {
-                  accountData: {
-                    id: account().id,
-                    account_name: !accountName().length
-                      ? "Wallet"
-                      : accountName(),
-                  },
-                }).catch(() => {});
-                setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                onClickEditAccount().catch(() => {});
               }}
             />
           </div>

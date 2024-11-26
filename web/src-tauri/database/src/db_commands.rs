@@ -32,27 +32,35 @@ pub fn find_account_by_address(address: &str) -> Result<AccountDetails, diesel::
     Ok(account)
 }
 
-pub fn update_account_name(account_data: UpdateAccountData) {
+pub fn update_account_name(
+    account_data: UpdateAccountData,
+) -> Result<UpdateAccountData, diesel::result::Error> {
     use crate::schema::accounts::dsl::*;
 
     let db_manager = DatabaseManager::new();
     let connection = &mut db_manager.establish_connection();
 
-    update(accounts.filter(id.eq(account_data.id)))
-        .set(account_name.eq(account_data.account_name))
+    update(accounts.filter(id.eq(account_data.id.clone())))
+        .set(account_name.eq(account_data.account_name.clone()))
         .execute(connection)
-        .unwrap();
+        .map_err(|e| e)?;
+
+    Ok(account_data)
 }
 
-pub fn delete_account(account_data: DeleteAccountData) {
+pub fn delete_account(
+    account_data: DeleteAccountData,
+) -> Result<Vec<AccountDetails>, diesel::result::Error> {
     use crate::schema::accounts::dsl::*;
 
     let db_manager = DatabaseManager::new();
     let connection = &mut db_manager.establish_connection();
 
-    delete(accounts.filter(id.eq(account_data.id)))
+    delete(accounts.filter(id.eq(&account_data.id)))
         .execute(connection)
-        .unwrap();
+        .map_err(|e| e)?;
+
+    accounts.load::<AccountDetails>(connection).map_err(|e| e)
 }
 
 pub fn get_accounts() -> Result<Vec<AccountDetails>, Vec<AccountDetails>> {

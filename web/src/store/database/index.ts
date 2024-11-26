@@ -1,27 +1,16 @@
 import { BLOCKCHAIN } from "@interfaces/enums";
-import {
-  ILoadDatabase,
-  ILoadDatabaseAccount,
-} from "@interfaces/interfaces/database";
+import { ILoadDatabase } from "@interfaces/interfaces/database";
 import { setAccounts } from "@store/accounts/accounts";
+import { loadAccountProfiles } from "@store/accounts/actions";
 import { setIsFetchingDatabase } from "@store/ui/ui";
 import { invoke } from "@tauri-apps/api";
 
-export const getDatabaseResponse = async () => {
+export const getDatabaseResponse = async (): Promise<
+  ILoadDatabase | undefined
+> => {
   try {
     setIsFetchingDatabase(true);
-    const response = await invoke<ILoadDatabase>("load_database");
-    const accounts = response.accounts.map((account) => {
-      return {
-        id: account.id,
-        balance: account.balance,
-        accountName: account.account_name,
-        accountAddress: account.account_address,
-        chain: account.chain as BLOCKCHAIN,
-      };
-    });
-    setAccounts(accounts);
-
+    const response = await loadDatabaseAccounts();
     return response;
   } catch {
     //add notyfications
@@ -32,31 +21,25 @@ export const getDatabaseResponse = async () => {
   }
 };
 
-export const loadDatabase = async () => {
-  const data = await getDatabaseResponse();
+export const loadDatabaseAccounts = async (): Promise<ILoadDatabase> => {
+  const response = await invoke<ILoadDatabase>("load_database");
+  const accounts = response.accounts.map((account) => {
+    return {
+      id: account.id,
+      balance: account.balance,
+      accountName: account.account_name,
+      accountAddress: account.account_address,
+      chain: account.chain as BLOCKCHAIN,
+    };
+  });
+  setAccounts(accounts);
 
-  if (typeof data !== "undefined") {
-    await loadAccounts(data.accounts);
-  }
+  return response;
 };
 
-export const loadAccounts = async (accounts: ILoadDatabaseAccount[]) => {
-  try {
-    for (const account of accounts) {
-      try {
-        let responses = await invoke("load_account", {
-          address: account.account_address,
-          chain: BLOCKCHAIN.SOLANA,
-        });
-
-        console.log(responses);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  } catch (error) {
-    console.error("Error loading accounts:", error);
-  } finally {
-    console.log("got accounts");
+export const loadDatabase = async () => {
+  const data = await getDatabaseResponse();
+  if (typeof data !== "undefined") {
+    await loadAccountProfiles(data.accounts);
   }
 };
