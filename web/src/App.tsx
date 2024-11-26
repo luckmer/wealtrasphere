@@ -2,13 +2,13 @@ import ModalRoot from "@containers/Modals/Index";
 import Sidebar from "@pages/Sidebar/Index";
 import { Router, useNavigate } from "@solidjs/router";
 import "@styles/imports.css";
-import { onMount } from "solid-js";
 import { routes } from "./routes";
-import { fetchDatabaseAccounts } from "@store/accounts/actions";
+import { onMount } from "solid-js";
+import { loadDatabase } from "@store/database";
 
 function App() {
   onMount(() => {
-    fetchDatabaseAccounts().catch(() => {});
+    loadDatabase().catch(() => {});
   });
 
   return (

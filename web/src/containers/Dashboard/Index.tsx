@@ -1,5 +1,5 @@
-const Index = () => {
+const Dashboard = () => {
   return <div class="text-white-100">dashboard (Soon)</div>;
 };
 
-export default Index;
+export default Dashboard;

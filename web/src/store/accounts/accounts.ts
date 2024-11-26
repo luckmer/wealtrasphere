@@ -29,4 +29,12 @@ export const setAccounts = (accounts: IAccount[]) => {
   );
 };
 
+export const setAccount = (account: IAccount) => {
+  setState(
+    produce((s) => {
+      s.accounts.push(account);
+    })
+  );
+};
+
 export const appAccountsState = createMemo(() => state);

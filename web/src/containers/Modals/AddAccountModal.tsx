@@ -3,23 +3,20 @@ import IconButton from "@components/buttons/IconButton/Index";
 import Dropdown from "@components/Dropdown/Dropdown/Index";
 import DropdownList from "@components/Dropdown/DropdownList/Index";
 import DefaultInput from "@components/Inputs/DefaultInput/Index";
-import { Modal } from "@components/Modal/Index";
+import {Modal} from "@components/Modal/Index";
 import Progressbar from "@components/Progressbar/Index";
 import Typography from "@components/Typography/Index";
-import {
-  ACCOUNT_TYPE,
-  ADD_ACCOUNT,
-  BLOCKCHAIN,
-  MODAL_TYPE,
-} from "@interfaces/enums";
-import { INewAccount } from "@interfaces/interfaces/accounts";
-import { uiSelector } from "@store/ui/selectors";
-import { setOpenModal } from "@store/ui/ui";
-import { invoke } from "@tauri-apps/api";
+import {ACCOUNT_TYPE, ADD_ACCOUNT, BLOCKCHAIN, MODAL_TYPE,} from "@interfaces/enums";
+import {IAccount, INewAccount} from "@interfaces/interfaces/accounts";
+import {ILoadDatabaseAccount,} from "@interfaces/interfaces/database";
+import {setAccount} from "@store/accounts/accounts";
+import {uiSelector} from "@store/ui/selectors";
+import {setOpenModal} from "@store/ui/ui";
+import {invoke} from "@tauri-apps/api";
 import theme from "@theme/theme";
-import { RiArrowsArrowDownSLine } from "solid-icons/ri";
-import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
-import { v7 } from "uuid";
+import {RiArrowsArrowDownSLine} from "solid-icons/ri";
+import {createMemo, createSignal, Match, Show, Switch} from "solid-js";
+import {v7} from "uuid";
 
 const AddAccountModal = () => {
   const [step, setStep] = createSignal<ADD_ACCOUNT>(ADD_ACCOUNT.INIT);
@@ -56,15 +53,10 @@ const AddAccountModal = () => {
       return false;
     }
 
-    if (
-      progressbarStep()[step()] === 3 &&
+    return !(progressbarStep()[step()] === 3 &&
       (accountAddress() === undefined ||
-        (accountAddress() !== undefined && invalidAddress()))
-    ) {
-      return false;
-    }
+        (accountAddress() !== undefined && invalidAddress())));
 
-    return true;
   });
 
   return (
@@ -76,11 +68,11 @@ const AddAccountModal = () => {
       id="id"
       onClickCloseModal={() => {
         if (loading()) return;
-        setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+        setOpenModal({open: false, type: MODAL_TYPE.NONE});
       }}
     >
       <div class="flex flex-col gap-24">
-        <Progressbar step={progressbarStep()[step()]} />
+        <Progressbar step={progressbarStep()[step()]}/>
         <Switch>
           <Match when={step() === ADD_ACCOUNT.INIT}>
             <div class="flex flex-col gap-12">
@@ -240,7 +232,7 @@ const AddAccountModal = () => {
             text="caption"
             onClick={() => {
               if (step() === ADD_ACCOUNT.INIT) {
-                setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                setOpenModal({open: false, type: MODAL_TYPE.NONE});
                 return;
               }
 
@@ -279,10 +271,24 @@ const AddAccountModal = () => {
                 };
 
                 try {
-                  const status = await invoke("create_account", { newAccount });
-                  setOpenModal({ open: false, type: MODAL_TYPE.NONE });
+                  const account = await invoke<ILoadDatabaseAccount>(
+                    "create_account",
+                    {
+                      newAccount,
+                    }
+                  );
+                  setOpenModal({open: false, type: MODAL_TYPE.NONE});
                   setError(undefined);
-                  console.log("connection status", status);
+
+                  const data: IAccount = {
+                    id: account.id,
+                    balance: account.balance,
+                    accountName: account.account_name,
+                    accountAddress: account.account_address,
+                    chain: BLOCKCHAIN.SOLANA,
+                  };
+
+                  setAccount(data);
                 } catch (err: unknown) {
                   if (err instanceof Error) {
                     setError(err.message);

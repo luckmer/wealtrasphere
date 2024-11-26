@@ -1,6 +1,6 @@
-import { typography } from "@common/typography";
-import { VariantProps } from "class-variance-authority";
-import { createMemo, ParentComponent } from "solid-js";
+import {typography} from "@common/typography";
+import {VariantProps} from "class-variance-authority";
+import {createMemo, ParentComponent} from "solid-js";
 
 export interface IProps {
   classList?: {
@@ -11,7 +11,8 @@ export interface IProps {
 
 export interface TypographyProps
   extends IProps,
-    VariantProps<typeof typography> {}
+    VariantProps<typeof typography> {
+}
 
 const Typography: ParentComponent<TypographyProps> = (props) => {
   const styles = createMemo(() => {

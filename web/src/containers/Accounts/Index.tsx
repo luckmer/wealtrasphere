@@ -4,7 +4,7 @@ import { accountsSelector } from "@store/accounts/selectors";
 import { uiSelector } from "@store/ui/selectors";
 import { setOpenModal } from "@store/ui/ui";
 
-const AccountsRoot = () => {
+export const AccountsRoot = () => {
   return (
     <Accounts
       isFetching={uiSelector.isFetchingDatabase()}
