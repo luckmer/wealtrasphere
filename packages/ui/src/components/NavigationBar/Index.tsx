@@ -17,7 +17,7 @@ const NavigationBar: Component<IProps> = (props) => {
         <IconButton
           onClick={props.onClickAddAccount}
           title="Add account"
-          text="smallBold"
+          text="small"
           color="black">
           <RiSystemAddCircleLine color="black" />
         </IconButton>

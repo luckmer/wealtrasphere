@@ -6,8 +6,9 @@ import {
   formatBalance,
   getNativeTokenSymbol,
   shortAddress,
-} from '../../utils/index'
+} from '@utils/index'
 import { BsThreeDotsVertical } from 'solid-icons/bs'
+import Banner from '@components/Banner/Index'
 
 export interface IProps extends IAccount {
   onClick: () => void
@@ -19,13 +20,7 @@ const Account: Component<IProps> = (props) => {
     <div class="bg-black-400 border border-solid border-black-300  rounded h-auto rounded-6 cursor-pointer p-12">
       <div class="flex flex-col gap-12">
         <div class="flex flex-row gap-12 w-full justify-between items-center">
-          <div>
-            <div class="bg-black-300 p-6 px-12 rounded-6 inline-block">
-              <Typography ellipsis color="white" text="small">
-                {capitalizeFirstLetter(props.chain)}
-              </Typography>
-            </div>
-          </div>
+          <Banner label={capitalizeFirstLetter(props.chain)} />
           <div class="flex flex-row gap-12 items-center">
             <Typography ellipsis color="white" text="caption">
               {shortAddress(props.accountAddress)}
@@ -45,8 +40,8 @@ const Account: Component<IProps> = (props) => {
           </Typography>
         </div>
         <div class="border-t border-solid border-black-300">
-          <div class="flex w-full justify-between">
-            <div class="pt-12 flex flex-col gap-6">
+          <div class="flex w-full justify-between pt-12">
+            <div class="flex flex-col gap-12">
               <Typography ellipsis color="white" text="caption">
                 Balance
               </Typography>
@@ -54,7 +49,7 @@ const Account: Component<IProps> = (props) => {
                 {`${formatBalance(props.balance)} ${getNativeTokenSymbol(props.chain)}`}
               </Typography>
             </div>
-            <div class="pt-12 flex flex-col gap-6 text-right">
+            <div class="flex flex-col gap-12 text-right">
               <Typography ellipsis color="white" text="caption">
                 (Soon)
               </Typography>

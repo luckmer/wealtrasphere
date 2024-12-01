@@ -24,7 +24,7 @@ function App() {
                 navigate(path)
               }}
             />
-            <div class="p-16 pr-[0px] w-full">{data.children}</div>
+            <div class="pl-32  p-16 pr-[0px] w-full">{data.children}</div>
           </div>
         )
       }}>

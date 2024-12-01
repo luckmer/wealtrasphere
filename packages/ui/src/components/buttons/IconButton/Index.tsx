@@ -18,7 +18,7 @@ export interface ButtonProps extends IProps, VariantProps<typeof typography> {}
 
 const IconButton: ParentComponent<ButtonProps> = (props) => {
   return (
-    <button
+    <div
       onClick={() => {
         props.onClick()
       }}
@@ -38,7 +38,7 @@ const IconButton: ParentComponent<ButtonProps> = (props) => {
           {props.title}
         </Typography>
       </div>
-    </button>
+    </div>
   )
 }
 
