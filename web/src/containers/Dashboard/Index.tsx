@@ -7,6 +7,11 @@ const staticToken = {
   label: 'SOL',
 }
 
+const data = {
+  chain: BLOCKCHAIN.SOLANA,
+  tokens: [staticToken, staticToken, staticToken],
+}
+
 const DashboardRoot = () => {
   return (
     <Dashboard
@@ -27,20 +32,7 @@ const DashboardRoot = () => {
         [BLOCKCHAIN.SOLANA]: '55368,9',
         [BLOCKCHAIN.UNKNOWN]: '55368,9',
       }}
-      data={[
-        {
-          chain: BLOCKCHAIN.SOLANA,
-          tokens: [staticToken, staticToken, staticToken],
-        },
-        {
-          chain: BLOCKCHAIN.UNKNOWN,
-          tokens: [staticToken, staticToken, staticToken],
-        },
-        {
-          chain: BLOCKCHAIN.SOLANA,
-          tokens: [staticToken, staticToken, staticToken],
-        },
-      ]}
+      data={[data, data, data]}
     />
   )
 }

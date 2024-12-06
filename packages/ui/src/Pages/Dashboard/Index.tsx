@@ -46,18 +46,18 @@ export const Dashboard: Component<IProps> = (props) => {
                     <tr class="border-black-300">
                       <For each={FILTERS.slice(0, 2)}>
                         {(item) => (
-                          <th>
+                          <td>
                             <Typography text="caption">{item}</Typography>
-                          </th>
+                          </td>
                         )}
                       </For>
                       <th />
                       <th />
                       <For each={FILTERS.slice(-2)}>
                         {(item) => (
-                          <th class="text-end">
+                          <td class="text-end">
                             <Typography text="caption">{item}</Typography>
-                          </th>
+                          </td>
                         )}
                       </For>
                     </tr>
@@ -98,11 +98,11 @@ export const Dashboard: Component<IProps> = (props) => {
                               {props.prices[token.address]?.price ?? '----'}
                             </Typography>
                           </td>
-                          <th class="text-end">
+                          <td class="text-end">
                             <Typography text="caption" color="white">
                               {props.prices[token.address]?.value ?? '----'}
                             </Typography>
-                          </th>
+                          </td>
                         </tr>
                       )}
                     </For>
