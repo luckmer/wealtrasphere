@@ -19,6 +19,8 @@ export const typography = cva('not-italic select-none', {
     color: {
       white: 'text-white-100',
       grey: 'text-black-200',
+      lightGrey: 'text-grey-50',
+      lightBlue: 'text-blue-50',
       red: 'text-red-100',
       black: 'text-black-900',
       green: 'text-green-100',

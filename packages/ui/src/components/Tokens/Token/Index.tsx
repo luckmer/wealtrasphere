@@ -12,9 +12,9 @@ export interface IProps {
 
 const Token: Component<IProps> = (props) => {
   return (
-    <div class="p-12 rounded-6 grid grid-cols-4 gap-6 items-center cursor-pointer hover:bg-black-300">
+    <div class="p-12 rounded-6 grid  grid-cols-[0fr_0.08fr_1fr_0.1fr] gap-[48px] items-center cursor-pointer hover:bg-black-300">
       <div class="flex flex-row gap-12 items-center">
-        <div class="w-24 h-24 rounded-100 bg-blue-100" />
+        <div class="min-w-24 min-h-24 w-24 h-24 rounded-100 bg-blue-100" />
         <div class="flex flex-col gap-4">
           <Typography color="white" text="caption">
             {props.label}
@@ -28,7 +28,7 @@ const Token: Component<IProps> = (props) => {
         {props.balance}
       </Typography>
       <Typography class="text-right" text="body" color="white">
-        {props.balance}
+        {props.price}
       </Typography>
       <Typography class="text-right" text="body" color="white">
         ${props.value}

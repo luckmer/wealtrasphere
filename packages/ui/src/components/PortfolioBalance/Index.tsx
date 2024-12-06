@@ -10,7 +10,7 @@ export interface IProps {
 export const PortfolioBalance: Component<IProps> = (props) => {
   return (
     <div class="flex flex-col gap-6">
-      <Typography class="!text-[34px] !leading-[36px]" color="white">
+      <Typography class="!text-[48px] !leading-[50px]" color="white">
         ${props.balance}
       </Typography>
       <div class="flex flex-row gap-6 items-center">

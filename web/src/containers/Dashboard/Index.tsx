@@ -1,4 +1,11 @@
+import { BLOCKCHAIN } from '@interfaces/enums'
 import { Dashboard } from '@pages/Dashboard/Index'
+
+const staticToken = {
+  img: 'https://img.daisyui.com/images/profile/demo/2@94.webp',
+  address: '4abDc4abDc4abDc4abDc',
+  label: 'SOL',
+}
 
 const DashboardRoot = () => {
   return (
@@ -7,8 +14,33 @@ const DashboardRoot = () => {
       profit={-0.00114}
       percent={-2.38}
       banners={['Wallet', 'Solana', 'Sui']}
-      allocation="2"
-      tokenTotalBalance="55 368,9"
+      username="Luckmer"
+      prices={{
+        ['4abDc4abDc4abDc4abDc']: {
+          totalBalance: '27684,45',
+          value: '9,226.82',
+          balance: '3,596',
+          price: '3,596',
+        },
+      }}
+      totalBalance={{
+        [BLOCKCHAIN.SOLANA]: '55368,9',
+        [BLOCKCHAIN.UNKNOWN]: '55368,9',
+      }}
+      data={[
+        {
+          chain: BLOCKCHAIN.SOLANA,
+          tokens: [staticToken, staticToken, staticToken],
+        },
+        {
+          chain: BLOCKCHAIN.UNKNOWN,
+          tokens: [staticToken, staticToken, staticToken],
+        },
+        {
+          chain: BLOCKCHAIN.SOLANA,
+          tokens: [staticToken, staticToken, staticToken],
+        },
+      ]}
     />
   )
 }

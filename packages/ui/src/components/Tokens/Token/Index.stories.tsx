@@ -3,7 +3,7 @@ import Token from './Index'
 
 const meta: Meta<typeof Token> = {
   component: Token,
-  title: 'Pages/Token',
+  title: 'Pages/Tokens/Token',
 }
 
 export default meta

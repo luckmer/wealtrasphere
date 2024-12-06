@@ -1,5 +1,5 @@
 import { MODAL_TYPE } from '@interfaces/enums'
-import { IOpenModal } from '@interfaces/interfaces/ui'
+import { type IOpenModal } from '@interfaces/interfaces/ui'
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 
