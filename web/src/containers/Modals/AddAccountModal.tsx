@@ -10,7 +10,7 @@ import { ACCOUNT_TYPE, ADD_ACCOUNT, BLOCKCHAIN, MODAL_TYPE } from '@interfaces/e
 import { IAccount, INewAccount } from '@interfaces/interfaces/accounts'
 import { ILoadDatabaseAccount } from '@interfaces/interfaces/database'
 import { setAccount } from '@store/accounts/accounts'
-import { loadAccount } from '@store/accounts/actions'
+import { loadAccounts } from '@store/accounts/actions'
 import { uiSelector } from '@store/ui/selectors'
 import { setOpenModal } from '@store/ui/ui'
 import { invoke } from '@tauri-apps/api'
@@ -48,7 +48,10 @@ const AddAccountModal = () => {
       return false
     }
 
-    return !(progressbarStep()[step()] === 3 && (accountAddress() === undefined || (accountAddress() !== undefined && invalidAddress())))
+    return !(
+      progressbarStep()[step()] === 3 &&
+      (accountAddress() === undefined || (accountAddress() !== undefined && invalidAddress()))
+    )
   })
 
   return (
@@ -281,7 +284,7 @@ const AddAccountModal = () => {
                   setLoading(false)
                 }
 
-                await loadAccount(newAccount.account_address, BLOCKCHAIN.SOLANA)
+                await loadAccounts([newAccount.account_address], BLOCKCHAIN.SOLANA)
 
                 return
               }

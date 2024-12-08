@@ -1,7 +1,7 @@
 import { BLOCKCHAIN } from '@interfaces/enums'
 import { ILoadDatabase } from '@interfaces/interfaces/database'
 import { setAccounts } from '@store/accounts/accounts'
-import { loadAccountProfiles } from '@store/accounts/actions'
+import { loadAccounts } from '@store/accounts/actions'
 import { setIsFetchingDatabase } from '@store/ui/ui'
 import { invoke } from '@tauri-apps/api'
 
@@ -38,6 +38,21 @@ export const loadDatabaseAccounts = async (): Promise<ILoadDatabase> => {
 export const loadDatabase = async () => {
   const data = await getDatabaseResponse()
   if (typeof data !== 'undefined') {
-    await loadAccountProfiles(data.accounts)
+    const groupedByChain = data.accounts.reduce((acc, account) => {
+      if (!acc[account.chain]) {
+        acc[account.chain] = []
+      }
+      acc[account.chain].push(account.account_address)
+      return acc
+    }, {} as Record<BLOCKCHAIN, string[]>)
+
+    const chainTokensArray = Object.entries(groupedByChain).map(([chain, addresses]) => ({
+      chain: chain as BLOCKCHAIN,
+      addresses,
+    }))
+
+    for (const { chain, addresses } of chainTokensArray) {
+      await loadAccounts(addresses, chain)
+    }
   }
 }

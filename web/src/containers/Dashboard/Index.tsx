@@ -22,7 +22,6 @@ const DashboardRoot = () => {
       username="Luckmer"
       prices={{
         ['4abDc4abDc4abDc4abDc']: {
-          totalBalance: '27684,45',
           value: '9,226.82',
           balance: '3,596',
           price: '3,596',
