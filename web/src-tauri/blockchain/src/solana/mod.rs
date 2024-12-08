@@ -1,4 +1,3 @@
-pub mod rpc;
 pub mod solana_commands;
 pub mod solana_service;
 

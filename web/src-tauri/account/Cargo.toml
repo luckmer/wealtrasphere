@@ -6,6 +6,8 @@ edition = "2021"
 [dependencies]
 tauri = { workspace = true }
 serde = { workspace = true }
-
+diesel = { workspace = true }
+tokio = { workspace = true }
 database = { path = "../database" }
 blockchain = { path = "../blockchain" }
+state = { path = "../state" }

@@ -1,8 +1,10 @@
 use database::{Blockchain, SolanaAccount};
 use solana_sdk::pubkey::Pubkey;
+use state::AppState;
 use std::str::FromStr;
+use tauri::State;
 
-use crate::load_solana_account;
+use crate::load_solana_accounts;
 
 pub struct BlockchainManager {}
 
@@ -24,11 +26,12 @@ impl BlockchainManager {
 
     pub fn load_account(
         &self,
-        address: String,
+        addresses: Vec<String>,
         chain: Blockchain,
-    ) -> Result<SolanaAccount, String> {
+        state: State<'_, AppState>,
+    ) -> Result<Vec<SolanaAccount>, String> {
         match chain {
-            Blockchain::SOLANA => load_solana_account(address),
+            Blockchain::SOLANA => load_solana_accounts(addresses, state),
         }
     }
 }

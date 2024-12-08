@@ -11,8 +11,3 @@ pub use enums::*;
 pub use models::*;
 pub use schema::*;
 pub use types::*;
-
-pub fn init_database() {
-    let db_manager = DatabaseManager::new();
-    db_manager.init();
-}

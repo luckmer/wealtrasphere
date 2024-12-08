@@ -12,3 +12,5 @@ CREATE TABLE accounts (
     account_name TEXT NOT NULL,
     chain TEXT NOT NULL
 );
+
+

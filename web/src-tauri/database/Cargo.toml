@@ -6,10 +6,8 @@ edition = "2021"
 [dependencies]
 tauri = { workspace = true }
 serde = { workspace = true }
+diesel = { workspace = true }
 
-diesel = { version = "2.2.4", features = [
-  "sqlite",
-] }
 diesel_migrations = { version = "2.2.0", features = [
   "sqlite",
 ] }

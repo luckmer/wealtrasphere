@@ -1,0 +1,10 @@
+[package]
+name = "state"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+diesel = { workspace = true }
+database = { path = "../database" }
+connection = { path = "../connection" }
+solana-client = { workspace = true }
